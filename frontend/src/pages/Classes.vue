@@ -9,9 +9,9 @@
   export default {
     name: 'Classes',
     computed: {
-      ..mapGetters({
+      ...mapGetters([
         'classes'
-      }),
+      ]),
     },
   }
 </script>

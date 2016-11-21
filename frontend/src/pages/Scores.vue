@@ -9,11 +9,11 @@
   export default {
     name: 'Scores',
     computed: {
-      ..mapGetters({
+      ...mapGetters([
         'scores',
         'studentNames',
         'examNames'
-      }),
+      ]),
     },
   }
 </script>

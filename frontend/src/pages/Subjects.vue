@@ -9,9 +9,9 @@
   export default {
     name: 'Subjects',
     computed: {
-      ..mapGetters({
+      ...mapGetters([
         'subjects'
-      }),
+      ]),
     },
   }
 </script>
