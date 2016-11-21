@@ -5,8 +5,13 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
-    name: 'Exams'
-
+    name: 'Exams',
+    computed: {
+      ..mapGetters({
+        'exams'
+      }),
+    },
   }
 </script>

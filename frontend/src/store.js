@@ -49,6 +49,13 @@ export const store = new Vuex.Store({
         studentMap[student.id] = student.name
       }
       return studentMap
+    },
+    examNames: (state, getters) => {
+      const examMap = {}
+      for(let exam of getters.exams) {
+        examMap[exam.id] = exam.name
+      }
+      return examMap
     }
   },
   actions: {
