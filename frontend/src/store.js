@@ -35,17 +35,47 @@ export const store = new Vuex.Store({
     classes: state => state.classes,
     subjects: state => state.subjects,
     exams: state => state.exams,
-    scores: staet => state.scores
+    scores: staet => state.scores,
+    classNames: (state, getters) => {
+      const classMap = {}
+      for(let studentClass of getters.classes) {
+        classMap[studentClass.id] = studentClass.name
+      }
+      return classMap
+    },
+    studentNames: (state, getters) => {
+      const studentMap = {}
+      for(let student of getters.students) {
+        studentMap[student.id] = student.name
+      }
+      return studentMap
+    }
   },
   actions: {
     fetchStudents(context) {
       API.get('/student').then(res => {
-        console.log(res)
+        context.commit('updateStudents', res.data)
+      }).catch(err => console.error(err))
+    },
+    fetchClasses(context) {
+      API.get('/class').then(res => {
+        context.commit('updateClasses', res.data)
+      }).catch(err => console.error(err))
+    },
+    fetchSubjects(context) {
+      API.get('/subject').then(res => {
+        context.commit('updateSubjects', res.data)
+      }).catch(err => console.error(err))
+    },
+    fetchExams(context) {
+      API.get('/exam').then(res => {
+        context.commit('updateExams', res.data)
+      }).catch(err => console.error(err))
+    },
+    fetchScores(context) {
+      API.get('/score').then(res => {
+        context.commit('updateScores', res.data)
       }).catch(err => console.error(err))
     }
   }
-})
-
-API.get('/student').then(res => {
-  console.log(res)
 })
