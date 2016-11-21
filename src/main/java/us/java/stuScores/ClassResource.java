@@ -7,25 +7,25 @@ import javax.ws.rs.core.MediaType;
  * Created by 15437 on 2016/11/21.
  */
 @Path("/student/{id}")
-public class StudentResource{
+public class ClassResource{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Student getStudent(@PathParam("id") String id) {
-        return new Student("MIAOMIAOMIAO", id);
+    public StudentClass getStudentClass(@PathParam("id") String id) {
+        return new StudentClass("MIAOMIAOMIAO", id);
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public Student modifyStudent(
+    public StudentClass modifyStudentClass(
             @PathParam("id") String id,
             @FormParam("name") String name
     ) {
-        return new Student(name, id);
+        return new StudentClass(name, id);
     }
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteStudent {
+    public String deleteStudentClass {
     	@PathParam("id") String id
     } {
     	return "删除成功";

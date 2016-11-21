@@ -8,16 +8,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Student {
     public String name;
-    public String ID;
+    public String id;
+    public String class_id;
 
     public Student(){
         name = "";
-        ID = "";
+        id = "";
     }
 
     public Student(String name, String id){
         this.name = name;
-        this.ID = id;
+        this.id = id;
     }
 }
 /*

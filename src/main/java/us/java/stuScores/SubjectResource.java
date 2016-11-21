@@ -6,12 +6,13 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by 15437 on 2016/11/21.
  */
-@Path("/student/{id}")
-public class StudentResource{
+
+@Path("/subject/{id}")
+public class SubjectResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Student getStudent(@PathParam("id") String id) {
-        return new Student("MIAOMIAOMIAO", id);
+    public Subject getSubject(@PathParam("id") String id) {
+        return new Subject("MIAOMIAOMIAO", id);
     }
 
     @PUT
@@ -23,12 +24,4 @@ public class StudentResource{
     ) {
         return new Student(name, id);
     }
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public String deleteStudent {
-    	@PathParam("id") String id
-    } {
-    	return "删除成功";
-    }
-    
 }
