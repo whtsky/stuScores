@@ -7,7 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("exam")
-public class StudentListResource {
+public class ExamListResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
 

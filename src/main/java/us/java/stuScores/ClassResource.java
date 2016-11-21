@@ -6,7 +6,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by 15437 on 2016/11/21.
  */
-@Path("/student/{id}")
+@Path("/class/{id}")
 public class ClassResource{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -25,9 +25,9 @@ public class ClassResource{
     }
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteStudentClass {
+    public String deleteStudentClass (
     	@PathParam("id") String id
-    } {
+    ) {
     	return "删除成功";
     }
     

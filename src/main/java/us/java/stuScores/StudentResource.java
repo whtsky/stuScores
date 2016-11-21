@@ -23,11 +23,10 @@ public class StudentResource{
     ) {
         return new Student(name, id);
     }
+
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteStudent {
-    	@PathParam("id") String id
-    } {
+    public String deleteStudent(@PathParam("id") String id) {
     	return "删除成功";
     }
     
