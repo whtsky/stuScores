@@ -1,10 +1,15 @@
 package us.java.stuScores;
 
+import java.sql.*;
+
 /**
  * Created by 15437 on 2016/11/21.
  */
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.ExceptionMapper;
+
+import static us.java.stuScores.JDBC.*;
 
 @Path("student")
 public class StudentListResource {
@@ -21,10 +26,23 @@ public class StudentListResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public Student addStudent(
+    public void addStudent(
             @FormParam("name") String name,
             @FormParam("id") String id
-    ){
-        return new Student(name,id);
+    ) throws ClassNotFoundException{
+
+        try
+        {
+            Statement statement = getConnection().createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+            statement.executeUpdate("INSERT INTO student (id, name) VALUES (" + id + ",'" + name + "');");
+        }
+        catch(Exception e)
+        {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            e.printStackTrace();
+        }
     }
 }
