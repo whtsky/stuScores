@@ -2,6 +2,9 @@ package us.java.stuScores;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import static us.java.stuScores.JDBC.*;
+import java.sql.*;
 /**
  * Created by 15437 on 2016/11/21.
  */
@@ -10,21 +13,41 @@ public class SubjectListResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
 
-    public Subject[] getSubject() {
-        Subject subjects[] = new Subject[2];
-        subjects[0] = new Subject("C语言", "01");
-        subjects[1] = new Subject("数据结构", "02");
-        return subjects;
+    public Subject[] getSubject() throws SQLException {
+        try {
+            Statement statement = createStatement();
+            ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM subject;");
+            r.next();
+            int rows = r.getInt("rowcount");
+            r.close();
+            ResultSet rs = statement.executeQuery("SELECT * FROM subject;");
+            Subject subjects[] = new Subject[rows];
+            int i = 0;
+            while (rs.next()){
+                String id = rs.getString("id");
+                String name = rs.getString("name");
+                subjects[i++] = new Subject(name, id);
+            }
+            return subjects;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public Subject addSubject(
+    public void addSubject (
             @FormParam("name") String name,
             @FormParam("id") String id
-    ){
-        return new Subject(name,id);
+    ) throws SQLException{
+        try{
+            Statement statement = createStatement();
+            statement.executeUpdate("INSERT INTO subject (id, name) VALUES ('" + id + "','" + name + "');");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

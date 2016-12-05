@@ -8,22 +8,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Student {
     public String name;
-    public String id;
-    public String class_id;
+    public long id;
 
     public Student(){
         name = "";
-        id = "";
+        id = 0;
     }
 
-    public Student(String name, String id){
+    public Student(String name, long id){
         this.name = name;
         this.id = id;
     }
 }
-/*
-/student -> Array[Student]
-/student/<id> -> Studnet
-PUT /student/<id? -> Modify
-POST /student -> new
-*/

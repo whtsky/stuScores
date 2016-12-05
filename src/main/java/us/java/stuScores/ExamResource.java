@@ -11,7 +11,7 @@ public class ExamResource{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Student getStudent(@PathParam("id") String id) {
-        return new Student("MIAOMIAOMIAO", id);
+        return new Student("MIAOMIAOMIAO", Long.parseLong(id));
     }
 
     @PUT
@@ -21,7 +21,7 @@ public class ExamResource{
             @PathParam("id") String id,
             @FormParam("name") String name
     ) {
-        return new Student(name, id);
+        return new Student(name, Long.parseLong(id));
     }
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)

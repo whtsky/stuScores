@@ -1,14 +1,21 @@
 package us.java.stuScores;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Exam {
-	public int subject_id;
-	public int date;
+	public String id;
+	public long date;
 	public String name;
 	
-	public Exam() {}
+	public Exam() {
+		id = "";
+		date = 0;
+		name = "";
+	}
 	
-	public Exam(int subject_id, int date, String name) {
-		this.subject_id = subject_id;
+	public Exam(String id, long date, String name) {
+		this.id = id;
 		this.date = date;
 		this.name = name;
 	}

@@ -46,4 +46,9 @@ public class JDBC
         }
         return connection;
     }
+    public static Statement createStatement() throws SQLException {
+        Statement statement = getConnection().createStatement();
+        statement.setQueryTimeout(30);
+        return statement;
+    }
 }
