@@ -40,7 +40,7 @@ public class ExamListResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public void addStudent(
+    public void addExam(
             @FormParam("name") String name,
             @FormParam("id") String id,
             @FormParam("date") String date

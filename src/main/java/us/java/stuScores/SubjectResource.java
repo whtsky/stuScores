@@ -59,9 +59,7 @@ public class SubjectResource {
             Subject subjects[] = new Subject[rows];
             int i = 0;
             while (d_rs.next()){
-                String rs_id = d_rs.getString("id");
-                String rs_name = d_rs.getString("name");
-                subjects[i++] = new Subject(rs_name, rs_id);
+                subjects[i++] = new Subject(d_rs.getString("name"), d_rs.getString("id"));
             }
             return subjects;
         }catch (SQLException e){

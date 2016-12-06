@@ -49,7 +49,6 @@ public class StudentResource{
         try {
             Statement statement = createStatement();
             statement.executeUpdate("DELETE FROM student WHERE id = " + Long.parseLong(id) +";");
-            System.out.println(Long.parseLong(id));
             ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM student;");
             r.next();
             int rows = r.getInt("rowcount");
@@ -58,9 +57,7 @@ public class StudentResource{
             Student students[] = new Student[rows];
             int i = 0;
             while (d_rs.next()){
-                long rs_id = d_rs.getLong("id");
-                String rs_name = d_rs.getString("name");
-                students[i++] = new Student(rs_name, rs_id);
+                students[i++] = new Student(d_rs.getString("name"), d_rs.getLong("id"));
             }
             return students;
         }catch (SQLException e){

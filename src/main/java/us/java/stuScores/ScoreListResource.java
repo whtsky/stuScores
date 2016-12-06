@@ -24,13 +24,7 @@ public class ScoreListResource {
             Score score[] = new Score[rows];
             int i = 0;
             while (rs.next()){
-                int id = rs.getInt("id");
-                long student_id = rs.getLong("student_id");
-                String st_name = rs.getString("student_name");
-                String ex_name = rs.getString("exam_name");
-                String su_name = rs.getString("subject_name");
-                int score_num = rs.getInt("score");
-                score[i++] = new Score(id, student_id, st_name, ex_name, su_name, score_num);
+                score[i++] = new Score(rs.getInt("id"), rs.getLong("student_id"), rs.getString("student_name"), rs.getString("exam_name"), rs.getString("subject_name"), rs.getInt("score"));
             }
             return score;
         } catch (SQLException e) {

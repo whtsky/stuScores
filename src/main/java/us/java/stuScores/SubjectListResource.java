@@ -24,9 +24,7 @@ public class SubjectListResource {
             Subject subjects[] = new Subject[rows];
             int i = 0;
             while (rs.next()){
-                String id = rs.getString("id");
-                String name = rs.getString("name");
-                subjects[i++] = new Subject(name, id);
+                subjects[i++] = new Subject(rs.getString("name"), rs.getString("id"));
             }
             return subjects;
         }catch (SQLException e){
