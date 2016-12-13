@@ -1,7 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.css'
 
 Vue.use(VueRouter)
+Vue.use(VueMaterial)
+
+Vue.material.theme.register('default', {
+  primary: 'indigo',
+  accent: 'pink'
+})
+
+import PageContent from 'components/PageContent';
+Vue.component('page-content', PageContent);
 
 import App from './App'
 import Students from 'pages/Students'
@@ -27,10 +38,9 @@ const router = new VueRouter({
 
 import { store } from './store'
 
-new Vue({
+const Instance = Vue.component('app', App);
+new Instance({
   el: '#app',
-  template: '<App/>',
   router,
   store,
-  components: { App }
 })

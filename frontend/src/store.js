@@ -11,7 +11,14 @@ export const store = new Vuex.Store({
     classes: [],
     subjects: [],
     exams: [],
-    scores: []
+    scores: [],
+    loading: {
+      student: true,
+      classes: true,
+      subjects: true,
+      exams: true,
+      scores: true
+    }
   },
   mutations: {
     updateStudents(state, students) {
@@ -35,7 +42,8 @@ export const store = new Vuex.Store({
     classes: state => state.classes,
     subjects: state => state.subjects,
     exams: state => state.exams,
-    scores: staet => state.scores,
+    scores: state => state.scores,
+    loading: state => Object.values(state.loading).some(v => v === true),
     classNames: (state, getters) => {
       const classMap = {}
       for(let studentClass of getters.classes) {

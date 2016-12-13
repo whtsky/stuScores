@@ -1,18 +1,17 @@
-# stu-scores
+# 学生成绩管理系统 - 前端部分
 
-> A Vue.js project
+使用 Vue 2.0 实现的学生成绩管理系统的前端部分。
 
-## Build Setup
+## Build
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+先安装 yarn :
+```bash
+brew install yarn
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+之后安装依赖并 build 代码：
+
+``` bash
+yarn
+yarn build
+```

@@ -1,24 +1,146 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+  <div class="container" v-md-theme="'default'">
+    <md-sidenav class="main-sidebar md-left md-fixed" ref="main-sidebar">
+      <md-toolbar class="stu-logo">
+        <img src="./assets/logo.png">
+        <span>学生成绩管理系统</span>
+      </md-toolbar>
+
+      <div class="main-sidebar-links">
+        <md-list class="md-dense">
+          <md-list-item>
+            <router-link exact to="/class">班级管理</router-link>
+          </md-list-item>
+
+          <md-list-item>
+            <router-link exact to="/student">学生管理</router-link>
+          </md-list-item>
+
+          <md-list-item>
+            <router-link exact to="/exam">考试管理</router-link>
+          </md-list-item>
+
+          <md-list-item>
+            <router-link exact to="/score">成绩录入</router-link>
+          </md-list-item>
+        </md-list>
+      </div>
+    </md-sidenav>
+
+    <transition name="md-router">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
-<script>
+<style lang="scss">
+  @import "../node_modules/vue-material/src/core/stylesheets/variables.scss";
 
-export default {
-  name: 'app',
-}
-</script>
+  $sizebar-size: 280px;
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+  }
+  .container {
+    min-height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1;
+    transition: $swift-ease-out;
+    @media (min-width: 1281px) {
+      padding-left: $sizebar-size;
+    }
+  }
+  .main-sidebar.md-sidenav {
+    .md-sidenav-content {
+      width: $sizebar-size;
+      display: flex;
+      flex-flow: column;
+      @media (min-width: 1281px) {
+        top: 0;
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0);
+        box-shadow: $material-shadow-2dp;
+      }
+    }
+    .md-backdrop {
+      @media (min-width: 1281px) {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+    .md-toolbar {
+      min-height: 172px;
+      border-bottom: 1px solid rgba(#000, .12);
+    }
+    .stu-logo {
+      font-size: 24px;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      color: rgb(212,212,212);
+      text-decoration: none;
+      img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 16px;
+      }
+    }
+    .main-sidebar-links {
+      overflow: auto;
+      .md-inset .md-list-item-container {
+        padding-left: 36px;
+      }
+      .md-list-item-container {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+  .main-content {
+    padding: 16px;
+    flex: 1;
+    overflow: auto;
+    transform: translate3D(0, 0, 0);
+  }
+  .md-router-enter-active,
+  .md-router-leave-active {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    transition: $swift-ease-out;
+    @media (min-width: 1281px) {
+      left: 280px;
+    }
+  }
+  .md-router-enter,
+  .md-router-leave-active {
+    opacity: 0;
+  }
 </style>
+
+<script>
+  import { mapGetters } from 'vuex'
+  export default {
+    name: 'App',
+    computed: {
+      ...mapGetters([
+        'loading'
+      ]),
+    },
+    methods: {
+      toggleSidenav() {
+        this.$refs['main-sidebar'].toggle();
+      },
+      closeSidenav() {
+        this.$refs['main-sidebar'].close();
+      }
+    }
+  }
+</script>
