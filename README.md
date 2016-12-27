@@ -1,6 +1,14 @@
 # stuScores
 
-基于 Jersey + Vue 2 的 C/S 学生成绩管理系统
+基于 Jersey + Vue 2 的 C/S 学生成绩管理系统。
+采用前后端分离设计， 部署时需要运行 API Server 、 编译前端代码并配置 Nginx 。
+部署过程稍微有些繁琐， 所以我们写好了 `docker-compose.yml` 文件。 最简单的部署方法是安装 [Docker](https://docs.docker.com/engine/installation/) 和 [Docker Compose](https://docs.docker.com/compose/install/) ，然后运行
+```bash
+docker-compose up
+```
+
+然后在浏览器里打开 [http://127.0.0.1:8080/api/](http://127.0.0.1:8080/api/) 。
+
 
 ## API Server
 
@@ -14,14 +22,14 @@ WIP
 ```bash
 brew cask install java
 brew install maven
-````
+```
 
 然后：
 ```bash
 mvn clean package
 mvn exec:java
 ```
-之后再浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
+之后在｀浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
 
 ## 前端
 ```bash

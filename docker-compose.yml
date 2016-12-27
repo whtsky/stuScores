@@ -1,0 +1,25 @@
+version: '2'
+services:
+  api:
+    build: .
+    restart: always
+    expose:
+      - "8788"
+  frontend:
+    build: frontend/
+    restart: always
+    volumes:
+      - static-data:/frontend/dist
+  web:
+    image: nginx
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/conf.d/stuScores.conf
+      - static-data:/frontend/dist
+    ports:
+      - "8080:80"
+    links:
+      - api
+    command: /bin/bash -c "nginx -g 'daemon off;'"
+volumes:
+  static-data:
+    driver: local

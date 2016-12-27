@@ -8,13 +8,11 @@ import { API } from 'src/utils'
 export const store = new Vuex.Store({
   state: {
     students: [],
-    classes: [],
     subjects: [],
     exams: [],
     scores: [],
     loading: {
-      student: true,
-      classes: true,
+      students: true,
       subjects: true,
       exams: true,
       scores: true
@@ -23,18 +21,19 @@ export const store = new Vuex.Store({
   mutations: {
     updateStudents(state, students) {
       state.students = students
-    },
-    updateClasses(state, classes) {
-      state.classes = classes
+      state.loading.students = false
     },
     updateSubjects(state, subjects) {
       state.subjects = subjects
+      state.loading.subjects = false
     },
     updateExams(state, exams) {
       state.exams = exams
+      state.loading.exams = false
     },
     updateScores(state, scores) {
       state.scores = scores
+      state.loading.scores = false
     }
   },
   getters: {
@@ -44,13 +43,6 @@ export const store = new Vuex.Store({
     exams: state => state.exams,
     scores: state => state.scores,
     loading: state => Object.values(state.loading).some(v => v === true),
-    classNames: (state, getters) => {
-      const classMap = {}
-      for(let studentClass of getters.classes) {
-        classMap[studentClass.id] = studentClass.name
-      }
-      return classMap
-    },
     studentNames: (state, getters) => {
       const studentMap = {}
       for(let student of getters.students) {
@@ -70,11 +62,6 @@ export const store = new Vuex.Store({
     fetchStudents(context) {
       API.get('/student').then(res => {
         context.commit('updateStudents', res.data)
-      }).catch(err => console.error(err))
-    },
-    fetchClasses(context) {
-      API.get('/class').then(res => {
-        context.commit('updateClasses', res.data)
       }).catch(err => console.error(err))
     },
     fetchSubjects(context) {
