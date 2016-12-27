@@ -8,13 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Subject {
     public String name;
-    public String id;
-    public Subject(){
-        name = "";
-        id = "";
-    }
+    public long id;
+    public Subject() {}
 
-    public Subject(String name, String id){
+    public Subject(String name, long id){
         this.name = name;
         this.id = id;
     }

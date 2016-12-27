@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Score {
-    public int id;
+    public long id;
     public long student_id;
     public String student_name;
     public String exam_name;

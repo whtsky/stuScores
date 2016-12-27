@@ -25,7 +25,7 @@ public class ExamListResource {
             Exam exams[] = new Exam[rows];
             int i = 0;
             while (rs.next()){
-                String id = rs.getString("id");
+                long id = rs.getLong("id");
                 String name = rs.getString("name");
                 Long date = rs.getLong("date");
                 exams[i++] = new Exam(id, date, name);

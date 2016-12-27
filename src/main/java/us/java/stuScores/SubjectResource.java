@@ -19,7 +19,7 @@ public class SubjectResource {
             Statement statement = createStatement();
             ResultSet g_rs =  statement.executeQuery("SELECT name FROM subject WHERE id = '" + id + "';");
             g_rs.next();
-            return new Subject(g_rs.getString("name"), id);
+            return new Subject(g_rs.getString("name"), Long.valueOf(id));
         }catch (SQLException e){
             e.printStackTrace();
             return null;
@@ -38,7 +38,7 @@ public class SubjectResource {
             statement.executeUpdate("UPDATE subject SET name = '" + name + "'WHERE id = '" + id + "';");
             ResultSet p_rs = statement.executeQuery("SELECT name FROM subject WHERE id = '" + id + "';");
             p_rs.next();
-            return new Subject(p_rs.getString("name"), id);
+            return new Subject(p_rs.getString("name"), Long.valueOf(id));
         }catch (SQLException e){
             e.printStackTrace();
             return null;
@@ -47,10 +47,10 @@ public class SubjectResource {
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Subject[] deleteSubject(@PathParam("id") String id) throws SQLException{
+    public Subject[] deleteSubject(@PathParam("id") int id) throws SQLException{
         try {
             Statement statement = createStatement();
-            statement.executeUpdate("DELETE FROM subject WHERE id = '" + id +"';");
+            statement.executeUpdate("DELETE FROM subject WHERE id = " + id +";");
             ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM subject;");
             r.next();
             int rows = r.getInt("rowcount");
@@ -59,7 +59,7 @@ public class SubjectResource {
             Subject subjects[] = new Subject[rows];
             int i = 0;
             while (d_rs.next()){
-                subjects[i++] = new Subject(d_rs.getString("name"), d_rs.getString("id"));
+                subjects[i++] = new Subject(d_rs.getString("name"), d_rs.getInt("id"));
             }
             return subjects;
         }catch (SQLException e){

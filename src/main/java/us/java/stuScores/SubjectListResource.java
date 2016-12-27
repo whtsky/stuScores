@@ -12,8 +12,7 @@ import java.sql.*;
 public class SubjectListResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-
-    public Subject[] getSubject() throws SQLException {
+    public Subject[] getSubject() {
         try {
             Statement statement = createStatement();
             ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM subject;");
@@ -24,7 +23,7 @@ public class SubjectListResource {
             Subject subjects[] = new Subject[rows];
             int i = 0;
             while (rs.next()){
-                subjects[i++] = new Subject(rs.getString("name"), rs.getString("id"));
+                subjects[i++] = new Subject(rs.getString("name"), rs.getLong("id"));
             }
             return subjects;
         }catch (SQLException e){
@@ -38,12 +37,11 @@ public class SubjectListResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
     public void addSubject (
-            @FormParam("name") String name,
-            @FormParam("id") String id
+            @FormParam("name") String name
     ) throws SQLException{
         try{
             Statement statement = createStatement();
-            statement.executeUpdate("INSERT INTO subject (id, name) VALUES ('" + id + "','" + name + "');");
+            statement.executeUpdate("INSERT INTO subject (name) VALUES ('" + name + "');");
         }catch (SQLException e){
             e.printStackTrace();
         }
