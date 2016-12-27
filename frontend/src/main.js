@@ -1,3 +1,10 @@
+import { store } from './store'
+
+store.dispatch('fetchStudents')
+store.dispatch('fetchSubjects')
+store.dispatch('fetchExams')
+store.dispatch('fetchScores')
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMaterial from 'vue-material'
@@ -35,11 +42,10 @@ const router = new VueRouter({
   routes
 })
 
-import { store } from './store'
-
 const Instance = Vue.component('app', App);
 new Instance({
   el: '#app',
   router,
   store,
 })
+
