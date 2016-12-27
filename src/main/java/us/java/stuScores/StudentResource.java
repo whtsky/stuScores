@@ -4,6 +4,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import static us.java.stuScores.JDBC.*;
+import static us.java.stuScores.Student.GetAllStudent;
+
 import java.sql.*;
 
 /**
@@ -13,7 +15,7 @@ import java.sql.*;
 public class StudentResource{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Student getStudent (@PathParam("id") String id) throws SQLException {
+    public Student getStudent (@PathParam("id") String id){
         try {
             Statement statement = createStatement();
             ResultSet g_rs =  statement.executeQuery("SELECT name FROM student WHERE id = " + id + ";");
@@ -49,8 +51,7 @@ public class StudentResource{
         try {
             Statement statement = createStatement();
             statement.executeUpdate("DELETE FROM student WHERE id = " + Long.parseLong(id) +";");
-            Student student = new Student();
-            return student.GetAllStudent();
+            return GetAllStudent();
         }catch (SQLException e){
             e.printStackTrace();
             return null;

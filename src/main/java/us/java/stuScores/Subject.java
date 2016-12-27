@@ -21,7 +21,7 @@ public class Subject {
         this.id = id;
     }
 
-    public Subject[] GetAllSubject(){
+    public static Subject[] GetAllSubject(){
         try {
             Statement statement = createStatement();
             ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM subject;");

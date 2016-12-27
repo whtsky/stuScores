@@ -4,6 +4,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import static us.java.stuScores.JDBC.*;
+import static us.java.stuScores.Score.GetAllScore;
+
 import java.sql.*;
 
 /**
@@ -14,8 +16,7 @@ public class ScoreListResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Score[] getScore(){
-        Score score = new Score();
-        return score.GetAllScore();
+        return GetAllScore();
     }
 
     @POST
@@ -32,8 +33,7 @@ public class ScoreListResource {
             Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
             statement.executeUpdate("INSERT INTO score (student_id, exam_id, subject_id, score) VALUES (" + student_id + "," + exam_id + "," + subject_id + "," + score  + ");");
-            Score newScore = new Score();
-            return newScore.GetAllScore();
+            return GetAllScore();
         }
         catch(SQLException e)
         {

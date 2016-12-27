@@ -3,6 +3,7 @@ package us.java.stuScores;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import static us.java.stuScores.Exam.GetAllExam;
 import static us.java.stuScores.JDBC.*;
 import java.sql.*;
 
@@ -33,7 +34,7 @@ public class ExamResource{
             @PathParam("id") String id,
             @FormParam("name") String name,
             @FormParam("date") String date
-    ) throws SQLException{
+    ){
         try{
             Statement statement = createStatement();
             statement.executeUpdate("UPDATE exam SET name = '" + name + "', " + "date = " + date + " WHERE id = " + id + ";");
@@ -53,8 +54,7 @@ public class ExamResource{
         try{
             Statement statement = createStatement();
             statement.executeUpdate("DELETE FROM exam WHERE id = " + id + ";");
-            Exam exam = new Exam();
-            return exam.GetAllExam();
+            return GetAllExam();
         }catch (SQLException e){
             e.printStackTrace();
             return null;

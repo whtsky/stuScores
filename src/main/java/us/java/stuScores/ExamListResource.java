@@ -6,6 +6,7 @@ package us.java.stuScores;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import static us.java.stuScores.Exam.GetAllExam;
 import static us.java.stuScores.JDBC.*;
 import java.sql.*;
 
@@ -15,8 +16,7 @@ public class ExamListResource {
     @Produces(MediaType.APPLICATION_JSON)
 
     public Exam[] getExam(){
-        Exam exam = new Exam();
-        return exam.GetAllExam();
+        return GetAllExam();
     }
 
     @POST
@@ -25,14 +25,13 @@ public class ExamListResource {
     public Exam[] addExam(
             @FormParam("name") String name,
             @FormParam("date") String date
-    ) throws SQLException{
+    ){
         try{
             Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
             statement.executeUpdate("INSERT INTO exam (name, date) VALUES ('" + name + "'," + date + ");");
-            Exam exam = new Exam();
-            return exam.GetAllExam();
+            return GetAllExam();
         }catch (SQLException e){
             e.printStackTrace();
             return null;

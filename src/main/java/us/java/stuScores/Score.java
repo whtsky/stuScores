@@ -28,7 +28,7 @@ public class Score {
         this.score = score;
     }
 
-    public Score[] GetAllScore(){
+    public static Score[] GetAllScore(){
         try {
             Statement statement = createStatement();
             ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM score;");

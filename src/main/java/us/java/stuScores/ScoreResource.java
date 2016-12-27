@@ -7,6 +7,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import static us.java.stuScores.JDBC.*;
+import static us.java.stuScores.Score.GetAllScore;
+
 import java.sql.*;
 
 @Path("/score/{id}")
@@ -31,7 +33,7 @@ public class ScoreResource{
     public Score modifyScore (
             @PathParam("id") String id,
             @FormParam("score") String score
-    )throws SQLException {
+    ){
         try {
             Statement statement = createStatement();
             statement.executeUpdate("UPDATE score SET score = " + score + " WHERE id = " + id + ";");
@@ -46,12 +48,11 @@ public class ScoreResource{
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Score[] deleteScore(@PathParam("id") String id) throws SQLException{
+    public Score[] deleteScore(@PathParam("id") String id){
         try {
             Statement statement = createStatement();
             statement.executeUpdate("DELETE FROM score WHERE id = " + id +";");
-            Score score = new Score();
-            return score.GetAllScore();
+            return GetAllScore();
         }catch (SQLException e){
             e.printStackTrace();
             return null;

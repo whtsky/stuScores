@@ -4,6 +4,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import static us.java.stuScores.JDBC.*;
+import static us.java.stuScores.Subject.GetAllSubject;
+
 import java.sql.*;
 
 /**
@@ -51,8 +53,7 @@ public class SubjectResource {
         try {
             Statement statement = createStatement();
             statement.executeUpdate("DELETE FROM subject WHERE id = " + id + ";");
-            Subject subject = new Subject();
-            return subject.GetAllSubject();
+            return GetAllSubject();
         }catch (SQLException e){
             e.printStackTrace();
             return null;

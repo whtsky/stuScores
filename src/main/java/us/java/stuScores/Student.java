@@ -25,7 +25,7 @@ public class Student {
         this.id = id;
     }
 
-    public Student[] GetAllStudent(){
+    public static Student[] GetAllStudent(){
         try {
             Statement statement = createStatement();
             ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM student;");

@@ -7,15 +7,16 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import static us.java.stuScores.JDBC.*;
+import static us.java.stuScores.Student.GetAllStudent;
+
 import java.sql.*;
 
 @Path("student")
 public class StudentListResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Student[] getStudent() throws SQLException{
-        Student student = new Student();
-        return student.GetAllStudent();
+    public Student[] getStudent(){
+        return GetAllStudent();
     }
 
     @POST
@@ -31,8 +32,7 @@ public class StudentListResource {
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
             statement.executeUpdate("INSERT INTO student (id, name) VALUES (" + id + ",'" + name + "');");
-            Student student = new Student();
-            return student.GetAllStudent();
+            return GetAllStudent();
         }
         catch(SQLException e)
         {
