@@ -28,7 +28,9 @@ public class JDBC
             statement.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS score(" +
                             "id INTEGER PRIMARY KEY NOT NULL, " +
-                            "exam_name TEXT NOT NULL, " +
+                            "student_id INTEGER NOT NULL, " +
+                            "exam_id INTEGER NOT NULL, " +
+                            "subject_id INTEGER NOT NULL, " +
                             "score INTEGER NOT NULL " +
                     ")");
             statement.executeUpdate(

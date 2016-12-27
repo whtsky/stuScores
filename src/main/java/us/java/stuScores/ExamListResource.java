@@ -14,44 +14,28 @@ public class ExamListResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
 
-    public Exam[] getExam() throws SQLException{
-        try{
-            Statement statement = createStatement();
-            ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM exam;");
-            r.next();
-            int rows = r.getInt("rowcount");
-            r.close();
-            ResultSet rs = statement.executeQuery("SELECT * FROM exam;");
-            Exam exams[] = new Exam[rows];
-            int i = 0;
-            while (rs.next()){
-                long id = rs.getLong("id");
-                String name = rs.getString("name");
-                Long date = rs.getLong("date");
-                exams[i++] = new Exam(id, date, name);
-            }
-            return exams;
-        }catch (SQLException e){
-            e.printStackTrace();
-            return null;
-        }
+    public Exam[] getExam(){
+        Exam exam = new Exam();
+        return exam.GetAllExam();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public void addExam(
+    public Exam[] addExam(
             @FormParam("name") String name,
-            @FormParam("id") String id,
             @FormParam("date") String date
     ) throws SQLException{
         try{
             Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-            statement.executeUpdate("INSERT INTO exam (id, date, name) VALUES ('" + id + "'," + Long.parseLong(date) + ",'" + name + "');");
+            statement.executeUpdate("INSERT INTO exam (name, date) VALUES ('" + name + "'," + date + ");");
+            Exam exam = new Exam();
+            return exam.GetAllExam();
         }catch (SQLException e){
             e.printStackTrace();
+            return null;
         }
     }
 }

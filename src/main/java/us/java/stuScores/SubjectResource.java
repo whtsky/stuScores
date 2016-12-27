@@ -14,10 +14,10 @@ import java.sql.*;
 public class SubjectResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Subject getSubject(@PathParam("id") String id) throws SQLException{
+    public Subject getSubject(@PathParam("id") String id){
         try{
             Statement statement = createStatement();
-            ResultSet g_rs =  statement.executeQuery("SELECT name FROM subject WHERE id = '" + id + "';");
+            ResultSet g_rs =  statement.executeQuery("SELECT name FROM subject WHERE id = " + id + ";");
             g_rs.next();
             return new Subject(g_rs.getString("name"), Long.valueOf(id));
         }catch (SQLException e){
@@ -32,11 +32,11 @@ public class SubjectResource {
     public Subject modifySubject(
             @PathParam("id") String id,
             @FormParam("name") String name
-    ) throws SQLException{
+    ){
         try {
             Statement statement = createStatement();
-            statement.executeUpdate("UPDATE subject SET name = '" + name + "'WHERE id = '" + id + "';");
-            ResultSet p_rs = statement.executeQuery("SELECT name FROM subject WHERE id = '" + id + "';");
+            statement.executeUpdate("UPDATE subject SET name = '" + name + "'WHERE id = " + id + ";");
+            ResultSet p_rs = statement.executeQuery("SELECT name FROM subject WHERE id = " + id + ";");
             p_rs.next();
             return new Subject(p_rs.getString("name"), Long.valueOf(id));
         }catch (SQLException e){
@@ -47,21 +47,12 @@ public class SubjectResource {
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Subject[] deleteSubject(@PathParam("id") int id) throws SQLException{
+    public Subject[] deleteSubject(@PathParam("id") String id){
         try {
             Statement statement = createStatement();
-            statement.executeUpdate("DELETE FROM subject WHERE id = " + id +";");
-            ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM subject;");
-            r.next();
-            int rows = r.getInt("rowcount");
-            r.close();
-            ResultSet d_rs = statement.executeQuery("SELECT * FROM subject;");
-            Subject subjects[] = new Subject[rows];
-            int i = 0;
-            while (d_rs.next()){
-                subjects[i++] = new Subject(d_rs.getString("name"), d_rs.getInt("id"));
-            }
-            return subjects;
+            statement.executeUpdate("DELETE FROM subject WHERE id = " + id + ";");
+            Subject subject = new Subject();
+            return subject.GetAllSubject();
         }catch (SQLException e){
             e.printStackTrace();
             return null;

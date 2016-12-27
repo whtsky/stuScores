@@ -14,10 +14,10 @@ import java.sql.*;
 public class ExamResource{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Exam getExam(@PathParam("id") String id) throws SQLException{
+    public Exam getExam(@PathParam("id") String id){
         try{
             Statement statement = createStatement();
-            ResultSet g_rs = statement.executeQuery("SELECT * FROM exam WHERE id = '" + id + "';");
+            ResultSet g_rs = statement.executeQuery("SELECT * FROM exam WHERE id = " + id + ";");
             g_rs.next();
             return new Exam(g_rs.getLong("id"), g_rs.getLong("date"), g_rs.getString("name"));
         }catch (SQLException e){
@@ -36,8 +36,8 @@ public class ExamResource{
     ) throws SQLException{
         try{
             Statement statement = createStatement();
-            statement.executeUpdate("UPDATE exam SET name = '" + name + "', " + "date = " + Long.parseLong(date) + " WHERE id = '" + id + "';");
-            ResultSet p_rs = statement.executeQuery("SELECT * FROM exam WHERE id = '" + id + "';");
+            statement.executeUpdate("UPDATE exam SET name = '" + name + "', " + "date = " + date + " WHERE id = " + id + ";");
+            ResultSet p_rs = statement.executeQuery("SELECT * FROM exam WHERE id = " + id + ";");
             p_rs.next();
             return new Exam(p_rs.getLong("id"), p_rs.getLong("date"), p_rs.getString("name"));
         }catch (SQLException e){
@@ -52,18 +52,9 @@ public class ExamResource{
     ) throws SQLException{
         try{
             Statement statement = createStatement();
-            statement.executeUpdate("DELETE FROM exam WHERE id = '" + id + "';");
-            ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM exam;");
-            r.next();
-            int rows = r.getInt("rowcount");
-            r.close();
-            ResultSet d_rs = statement.executeQuery("SELECT * FROM exam;");
-            Exam exams[] = new Exam[rows];
-            int i = 0;
-            while (d_rs.next()){
-                exams[i++] = new Exam(d_rs.getLong("id"), d_rs.getLong("date"), d_rs.getString("name"));
-            }
-            return exams;
+            statement.executeUpdate("DELETE FROM exam WHERE id = " + id + ";");
+            Exam exam = new Exam();
+            return exam.GetAllExam();
         }catch (SQLException e){
             e.printStackTrace();
             return null;

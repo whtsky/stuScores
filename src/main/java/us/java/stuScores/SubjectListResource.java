@@ -13,37 +13,25 @@ public class SubjectListResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Subject[] getSubject() {
-        try {
-            Statement statement = createStatement();
-            ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM subject;");
-            r.next();
-            int rows = r.getInt("rowcount");
-            r.close();
-            ResultSet rs = statement.executeQuery("SELECT * FROM subject;");
-            Subject subjects[] = new Subject[rows];
-            int i = 0;
-            while (rs.next()){
-                subjects[i++] = new Subject(rs.getString("name"), rs.getLong("id"));
-            }
-            return subjects;
-        }catch (SQLException e){
-            e.printStackTrace();
-            return null;
-        }
+        Subject subject = new Subject();
+        return subject.GetAllSubject();
     }
 
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public void addSubject (
+    public Subject[] addSubject (
             @FormParam("name") String name
     ) throws SQLException{
         try{
             Statement statement = createStatement();
             statement.executeUpdate("INSERT INTO subject (name) VALUES ('" + name + "');");
+            Subject subject = new Subject();
+            return subject.GetAllSubject();
         }catch (SQLException e){
             e.printStackTrace();
+            return  null;
         }
     }
 }

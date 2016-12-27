@@ -16,7 +16,7 @@ public class StudentResource{
     public Student getStudent (@PathParam("id") String id) throws SQLException {
         try {
             Statement statement = createStatement();
-            ResultSet g_rs =  statement.executeQuery("SELECT name FROM student WHERE id = " + Long.parseLong(id) + ";");
+            ResultSet g_rs =  statement.executeQuery("SELECT name FROM student WHERE id = " + id + ";");
             g_rs.next();
             return new Student(g_rs.getString("name"), Long.parseLong(id));
         }catch (SQLException e){
@@ -30,11 +30,11 @@ public class StudentResource{
     public Student modifyStudent (
             @PathParam("id") String id,
             @FormParam("name") String name
-    ) throws SQLException{
+    ){
         try {
             Statement statement = createStatement();
-            statement.executeUpdate("UPDATE student SET name = '" + name + "'WHERE id = " + Long.parseLong(id) + ";");
-            ResultSet p_rs = statement.executeQuery("SELECT name FROM student WHERE id = " + Long.parseLong(id) + ";");
+            statement.executeUpdate("UPDATE student SET name = '" + name + "'WHERE id = " + id + ";");
+            ResultSet p_rs = statement.executeQuery("SELECT name FROM student WHERE id = " + id + ";");
             p_rs.next();
             return new Student(p_rs.getString("name"), Long.parseLong(id));
         }catch (SQLException e){
@@ -45,21 +45,12 @@ public class StudentResource{
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Student[] deleteStudent(@PathParam("id") String id) throws SQLException{
+    public Student[] deleteStudent(@PathParam("id") String id){
         try {
             Statement statement = createStatement();
             statement.executeUpdate("DELETE FROM student WHERE id = " + Long.parseLong(id) +";");
-            ResultSet r = statement.executeQuery("SELECT COUNT (*) AS rowcount FROM student;");
-            r.next();
-            int rows = r.getInt("rowcount");
-            r.close();
-            ResultSet d_rs = statement.executeQuery("SELECT * FROM student;");
-            Student students[] = new Student[rows];
-            int i = 0;
-            while (d_rs.next()){
-                students[i++] = new Student(d_rs.getString("name"), d_rs.getLong("id"));
-            }
-            return students;
+            Student student = new Student();
+            return student.GetAllStudent();
         }catch (SQLException e){
             e.printStackTrace();
             return null;
