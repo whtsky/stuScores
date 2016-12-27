@@ -1,23 +1,40 @@
-# 安装
-先改一下 Maven 的源地址…… 不然国内访问慢死了
-```bash
-> cat ~/.m2/settings.xml
-<settings>
-  <mirrors>
-    <mirror>
-      <id>alimaven</id>
-      <name>aliyun maven</name>
-      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-      <mirrorOf>central</mirrorOf>
-    </mirror>
-  </mirrors>
-</settings>
-```
+# stuScores
 
-# 编译 && 运行
+基于 Jersey + Vue 2 的 C/S 学生成绩管理系统
+
+## API Server
+
+### 编译 && 运行
+
+#### Docker way
+WIP
+
+#### 手动
+需要 Java 8 + Maven 3
+```bash
+brew cask install java
+brew install maven
+````
+
+然后：
 ```bash
 mvn clean package
 mvn exec:java
+```
+之后再浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
+
+## 前端
+```bash
+# 安装 Nodejs 与 yarn
+brew install yarn
+# 安装依赖
+cd frontend
+yarn
+
+# 运行开发服务器
+yarn dev
+# build
+yarn build
 ```
 
 # 参考资料
