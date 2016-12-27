@@ -13,4 +13,4 @@ ADD src /stuScores/src
 RUN ["mvn", "package"]
 
 EXPOSE 8788
-CMD ["mvn exec:java"]
+CMD ["mvn", "exec:java"]
