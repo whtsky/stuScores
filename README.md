@@ -7,7 +7,7 @@
 docker-compose up
 ```
 
-然后在浏览器里打开 [http://127.0.0.1:8080/api/](http://127.0.0.1:8080/api/) 。
+然后在浏览器里打开 [http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/) 。
 
 
 ## API Server
@@ -19,12 +19,14 @@ WIP
 
 #### 手动
 需要 Java 8 + Maven 3
+
 ```bash
 brew cask install java
 brew install maven
 ```
 
 然后：
+
 ```bash
 mvn clean package
 mvn exec:java

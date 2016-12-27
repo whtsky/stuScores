@@ -16,7 +16,7 @@ services:
       - ./conf/nginx.conf:/etc/nginx/conf.d/stuScores.conf
       - static-data:/frontend/dist
     ports:
-      - "8080:80"
+      - "8000:80"
     links:
       - api
     command: /bin/bash -c "nginx -g 'daemon off;'"
