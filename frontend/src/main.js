@@ -6,9 +6,9 @@ import 'vue-material/dist/vue-material.css'
 Vue.use(VueRouter)
 Vue.use(VueMaterial)
 
-Vue.material.theme.register('default', {
-  primary: 'indigo',
-  accent: 'pink'
+
+Vue.material.theme.register('sidebar', {
+  primary: 'white'
 })
 
 import PageContent from 'components/PageContent';
@@ -16,7 +16,6 @@ Vue.component('page-content', PageContent);
 
 import App from './App'
 import Students from 'pages/Students'
-import Classes from 'pages/Classes'
 import Exams from 'pages/Exams'
 import Subjects from 'pages/Subjects'
 import Scores from 'pages/Scores'
@@ -26,7 +25,6 @@ const routes = [
   { path: '/student', component: Students, alias: '/' },
   { path: '/exam', component: Exams},
   { path: '/score', component: Scores},
-  { path: '/class', component: Classes},
   { path: '/subject', component: Subjects},
   { path: '/analytics', component: Analytics},
   { path: '*', redirect: '/'}

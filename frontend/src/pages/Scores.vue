@@ -1,5 +1,4 @@
 <template>
-
   <page-content page-title="About">
     <div class="main-content">
       <md-table-card>

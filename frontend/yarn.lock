@@ -3821,8 +3821,8 @@ vue-loader@^9.4.0:
     vue-template-es2015-compiler "^1.2.2"
 
 vue-material@^0.4.1:
-  version "0.4.1"
-  resolved "http://registry.npm.taobao.org/vue-material/download/vue-material-0.4.1.tgz#56f868f0f9dfd3edc8f73a9c610e4e3a6c06b584"
+  version "0.4.3"
+  resolved "http://registry.npm.taobao.org/vue-material/download/vue-material-0.4.3.tgz#f6b4de4a15cff8d5a5e7966f80293ed68b08d710"
   dependencies:
     vue "^2.1.4"
 
@@ -3852,8 +3852,8 @@ vue@^2.0.1:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.0.8.tgz#bbc191db5e1442f208604f994f03e49ac09e69d2"
 
 vue@^2.1.4:
-  version "2.1.5"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.5.tgz#d2568d3e5093cf1486eef44cf37177e3f51d568d"
+  version "2.1.7"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.7.tgz#747880cb70a50c66cb8791aacfee7a6dab7fc842"
 
 vuex@^2.0.0:
   version "2.0.0"

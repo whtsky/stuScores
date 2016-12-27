@@ -1,7 +1,7 @@
 <template>
   <div class="container" v-md-theme="'default'">
     <md-sidenav class="main-sidebar md-left md-fixed" ref="main-sidebar">
-      <md-toolbar class="stu-logo">
+      <md-toolbar class="stu-logo" v-md-theme="'sidebar'">
         <img src="./assets/logo.png">
         <span>学生成绩管理系统</span>
       </md-toolbar>
@@ -9,7 +9,7 @@
       <div class="main-sidebar-links">
         <md-list class="md-dense">
           <md-list-item>
-            <router-link exact to="/class">班级管理</router-link>
+            <router-link exact to="/subject">学科管理</router-link>
           </md-list-item>
 
           <md-list-item>
@@ -83,8 +83,8 @@
       flex-flow: column;
       justify-content: center;
       align-items: center;
-      color: rgb(212,212,212);
       text-decoration: none;
+      padding-bottom: 16px;
       img {
         width: 120px;
         height: 120px;
@@ -126,14 +126,8 @@
 </style>
 
 <script>
-  import { mapGetters } from 'vuex'
   export default {
     name: 'App',
-    computed: {
-      ...mapGetters([
-        'loading'
-      ]),
-    },
     methods: {
       toggleSidenav() {
         this.$refs['main-sidebar'].toggle();

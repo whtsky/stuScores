@@ -14,7 +14,10 @@
       </md-toolbar>
     </md-whiteframe>
 
-    <slot></slot>
+    <div v-if="loading">
+      Loading..
+    </div>
+    <slot v-else></slot>
   </div>
 </template>
 
@@ -57,9 +60,16 @@
 </style>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     props: {
       pageTitle: String
+    },
+    computed: {
+      ...mapGetters([
+        'loading'
+      ]),
     },
     methods: {
       toggleSidenav() {
