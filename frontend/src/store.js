@@ -42,7 +42,7 @@ export const store = new Vuex.Store({
     subjects: state => state.subjects,
     exams: state => state.exams,
     scores: state => state.scores,
-    loading: state => Object.values(state.loading).some(v => v === true),
+    loading: state =>  false && Object.values(state.loading).some(v => v === true),
     studentNames: (state, getters) => {
       const studentMap = {}
       for(let student of getters.students) {

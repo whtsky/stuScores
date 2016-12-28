@@ -3,17 +3,20 @@
     <md-dialog md-open-from="#add" md-close-to="#add" ref="addDialog">
       <md-dialog-title>添加学科</md-dialog-title>
       <md-dialog-content>
-          <md-input-container :class="{'md-input-invalid': subjectExist}">
+          <md-input-container>
             <label>学科名称</label>
-            <md-input required></md-input>
+            <md-input required v-model="newSubject"></md-input>
             <span class="md-error">该学科已存在</span>
           </md-input-container>
         </form>
       </md-dialog-content>
 
       <md-dialog-actions>
-        <md-button class="md-primary" @click="closeAddDialog()">Cancel</md-button>
-        <md-button class="md-primary" @click="closeAddDialog()">Ok</md-button>
+        <md-button class="md-primary" @click="closeAddDialog()">取消</md-button>
+        <md-button class="md-primary" @click="addSubject()" :disabled="!canSubmit">
+          <md-spinner md-indeterminate :md-size="10" v-if="adding"></md-spinner>
+          添加学科
+        </md-button>
       </md-dialog-actions>
     </md-dialog>
     <div class="main-content">
@@ -34,8 +37,8 @@
         <md-table md-sort="calories">
           <md-table-header>
             <md-table-row>
-              <md-table-head md-sort-by="dessert">学科名称</md-table-head>
-              <md-table-head md-sort-by="fat" md-numeric>学生人数</md-table-head>
+              <md-table-head md-sort-by="id" md-numeric>ID</md-table-head>
+              <md-table-head md-sort-by="name">学科名称</md-table-head>
             </md-table-row>
           </md-table-header>
 
@@ -75,7 +78,8 @@
     name: 'Subjects',
     data() {
       return {
-        newSubject: ''
+        newSubject: '',
+        adding: false
       }
     },
     computed: {
@@ -87,6 +91,9 @@
       },
       subjectExist() {
         return this.subjects.some(x => x.name === this.trimedNewSubjectName)
+      },
+      canSubmit() {
+        return this.trimedNewSubjectName && !this.subjectExist && !this.adding
       }
     },
     methods: {
@@ -96,7 +103,10 @@
       },
       closeAddDialog() {
         this.$refs['addDialog'].close()
-      }
+      },
+      addSubject() {
+        this.adding = true
+      },
     }
   }
 </script>

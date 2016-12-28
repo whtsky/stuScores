@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 Vue.use(VueMaterial)
 
 
-Vue.material.theme.register('sidebar', {
+Vue.material.registerTheme('sidebar', {
   primary: 'white'
 })
 

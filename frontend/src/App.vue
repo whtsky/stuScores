@@ -1,36 +1,40 @@
 <template>
-  <div class="container" v-md-theme="'default'">
-    <md-sidenav class="main-sidebar md-left md-fixed" ref="main-sidebar">
-      <md-toolbar class="stu-logo" v-md-theme="'sidebar'">
-        <img src="./assets/logo.png">
-        <span>学生成绩管理系统</span>
-      </md-toolbar>
+  <md-theme md-name="default">
+    <div class="container">
+      <md-sidenav class="main-sidebar md-left md-fixed" ref="main-sidebar">
+        <md-theme md-name="sidebar">
+          <md-toolbar class="stu-logo">
+            <img src="./assets/logo.png">
+            <span>学生成绩管理系统</span>
+          </md-toolbar>
+        </md-theme>
 
-      <div class="main-sidebar-links">
-        <md-list class="md-dense">
-          <md-list-item>
-            <router-link exact to="/subject">学科管理</router-link>
-          </md-list-item>
+        <div class="main-sidebar-links">
+          <md-list class="md-dense">
+            <md-list-item>
+              <router-link exact to="/subject">学科管理</router-link>
+            </md-list-item>
 
-          <md-list-item>
-            <router-link exact to="/student">学生管理</router-link>
-          </md-list-item>
+            <md-list-item>
+              <router-link exact to="/student">学生管理</router-link>
+            </md-list-item>
 
-          <md-list-item>
-            <router-link exact to="/exam">考试管理</router-link>
-          </md-list-item>
+            <md-list-item>
+              <router-link exact to="/exam">考试管理</router-link>
+            </md-list-item>
 
-          <md-list-item>
-            <router-link exact to="/score">成绩录入</router-link>
-          </md-list-item>
-        </md-list>
-      </div>
-    </md-sidenav>
+            <md-list-item>
+              <router-link exact to="/score">成绩录入</router-link>
+            </md-list-item>
+          </md-list>
+        </div>
+      </md-sidenav>
 
-    <transition name="md-router">
-      <router-view></router-view>
-    </transition>
-  </div>
+      <transition name="md-router">
+        <router-view></router-view>
+      </transition>
+    </div>
+  </md-theme>
 </template>
 
 <style lang="scss">
