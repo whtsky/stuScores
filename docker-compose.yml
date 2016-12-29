@@ -10,8 +10,8 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: frontend/
-    restart: always
+      dockerfile: frontend/Dockerfile
+    restart: no
     volumes:
       - static-data:/frontend/dist
   web:
@@ -21,6 +21,7 @@ services:
       - static-data:/frontend/dist
     ports:
       - "8000:80"
+    restart: always
     links:
       - api
     command: /bin/bash -c "nginx -g 'daemon off;'"
