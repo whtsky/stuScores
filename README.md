@@ -7,7 +7,7 @@
 docker-compose up
 ```
 
-然后在浏览器里打开 [http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/) 。
+然后在浏览器里打开 [http://127.0.0.1:8788/api/application.wadl](http://127.0.0.1:8788/api/application.wadl) 。
 
 
 ## API Server
@@ -21,7 +21,7 @@ API Server 使用 Jersey 框架编写， 数据库使用 SQLite 。针对 Studen
 ```bash
 docker run -p 8788 whtsky/stuscores
 ```
-之后在浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
+之后在浏览器里打开 [http://127.0.0.1:8788/api/application.wadl](http://127.0.0.1:8788/api/application.wadl)
 
 #### 手动编译
 需要 Java 8 + Maven 3
@@ -37,7 +37,7 @@ brew install maven
 mvn clean package
 mvn exec:java
 ```
-之后在浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
+之后在浏览器里打开 [http://127.0.0.1:8788/api/application.wadl](http://127.0.0.1:8788/api/application.wadl)
 
 ## 前端
 ```bash

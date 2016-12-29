@@ -83,7 +83,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import { API } from 'src/utils'
   import { map } from 'lodash'
 
@@ -123,6 +123,9 @@
       }
     },
     methods: {
+      ...mapMutations([
+        'updateSubjects'
+      ]),
       onSelect(data) {
         this.selectedData = data;
       },
@@ -150,8 +153,8 @@
           name: this.trimedNewSubjectName
         })
         .then((r) => {
-          console.log(r)
           this.adding = false
+          this.updateSubjects(r.data)
           this.closeAddDialog()
         })
         .catch((error) => {
@@ -168,9 +171,14 @@
           name: this.trimedChangeSubjectName
         })
         .then((r) => {
-          console.log(r)
           this.changing = false
           this.closeChangeDialog()
+          this.updateSubjects(this.subjects.map(s => {
+            if (s.id === this.currentSubjectID) {
+              return r.data
+            }
+            return s
+          }))
         })
         .catch((error) => {
           console.error(error)
@@ -178,7 +186,7 @@
         });
       },
       removeSubjects() {
-        map(this.selectedData, s => API.delete(`/subject/${s.id}`))
+        map(this.selectedData, s => API.delete(`/subject/${s.id}`).then(r => this.updateSubjects(r.data)))
       }
     }
   }
