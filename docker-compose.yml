@@ -6,8 +6,9 @@ services:
     expose:
       - "8788"
   frontend:
-    context: ./frontend
-    build: frontend/
+    build:
+      context: ./frontend
+      dockerfile: frontend/
     restart: always
     volumes:
       - static-data:/frontend/dist
