@@ -6,6 +6,7 @@ services:
     expose:
       - "8788"
   frontend:
+    context: ./frontend
     build: frontend/
     restart: always
     volumes:

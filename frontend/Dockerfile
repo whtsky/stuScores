@@ -1,7 +1,4 @@
-FROM node:7.2
-
-RUN npm set progress=false && \
-    npm install -g --progress=false yarn
+FROM kkarczmarczyk/node-yarn:7.2
 
 WORKDIR /frontend
 
