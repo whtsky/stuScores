@@ -1,7 +1,7 @@
 version: '2'
 services:
   api:
-    build: .
+    build: dockerfiles/Build
     restart: always
     expose:
       - "8788"

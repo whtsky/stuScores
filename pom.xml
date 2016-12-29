@@ -62,7 +62,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <finalName>stuScores-${project.version}</finalName>
+                    <finalName>stuScores</finalName>
                     <archive>
                         <manifest>
                             <mainClass>us.java.stuScores.Main</mainClass>
