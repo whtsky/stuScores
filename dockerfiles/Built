@@ -1,6 +1,6 @@
 FROM java:8
 
-ADD target/stuScores-1.0-SNAPSHOT-jar-with-dependencies.jar /code/stuScores-1.0-SNAPSHOT-jar-with-dependencies.jar  
+ADD target/stuScores-jar-with-dependencies.jar /code/stuScores.jar  
 
 EXPOSE 8788
-CMD ["java", "-jar", "/code/stuScores-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+CMD ["java", "-jar", "/code/stuScores.jar"]

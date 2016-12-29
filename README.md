@@ -12,12 +12,18 @@ docker-compose up
 
 ## API Server
 
-### 编译 && 运行
+API Server 使用 Jersey 框架编写， 数据库使用 SQLite 。针对 Student 、 Exam 、 Score 、 Subject 四个模型暴露了 Restful JSON API，方便客户端调用。
 
-#### Docker way
-WIP
+### 运行
 
-#### 手动
+#### Docker
+可以使用预编译好的 API Docker 镜像： [![Build Status](https://semaphoreci.com/api/v1/projects/ee8c7d30-1867-4fa4-83ce-cfa363172d30/1113765/shields_badge.svg)](https://semaphoreci.com/whtsky/stuscores)
+```bash
+docker run -p 8788 whtsky/stuscores
+```
+之后在浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
+
+#### 手动编译
 需要 Java 8 + Maven 3
 
 ```bash
@@ -31,7 +37,7 @@ brew install maven
 mvn clean package
 mvn exec:java
 ```
-之后在｀浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
+之后在浏览器里打开 [http://127.0.0.1:8788/api/](http://127.0.0.1:8788/api/)
 
 ## 前端
 ```bash
