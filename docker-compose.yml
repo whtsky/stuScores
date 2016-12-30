@@ -10,8 +10,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: frontend/Dockerfile
-    restart: no
+      dockerfile: Dockerfile
     volumes:
       - static-data:/frontend/dist
   web:
