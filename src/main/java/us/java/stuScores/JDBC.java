@@ -23,7 +23,7 @@ public class JDBC
                     "CREATE TABLE IF NOT EXISTS exam(" +
                             "id INTEGER PRIMARY KEY NOT NULL, " +
                             "name TEXT NOT NULL, " +
-                            "date INTERGER NOT NULL" +
+                            "date TEXT NOT NULL" +
                     ")");
             statement.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS score(" +

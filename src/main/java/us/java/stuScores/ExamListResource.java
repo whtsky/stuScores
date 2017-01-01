@@ -30,7 +30,7 @@ public class ExamListResource {
             Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-            statement.executeUpdate("INSERT INTO exam (name, date) VALUES ('" + name + "'," + date + ");");
+            statement.executeUpdate("INSERT INTO exam (name, date) VALUES ('" + name + "','" + date + "');");
             return GetAllExam();
         }catch (SQLException e){
             e.printStackTrace();

@@ -10,12 +10,12 @@ import static us.java.stuScores.JDBC.createStatement;
 @XmlRootElement
 public class Exam {
 	public long id;
-	public long date;
+	public String date;
 	public String name;
 
 	public Exam(){}
 	
-	public Exam(long id, long date, String name) {
+	public Exam(long id, String date, String name) {
 		this.id = id;
 		this.date = date;
 		this.name = name;
@@ -34,7 +34,7 @@ public class Exam {
 			while (rs.next()){
 				long id = rs.getLong("id");
 				String name = rs.getString("name");
-				Long date = rs.getLong("date");
+				String date = rs.getString("date");
 				exams[i++] = new Exam(id, date, name);
 			}
 			return exams;
