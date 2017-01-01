@@ -20,7 +20,9 @@ public class ExamResource{
             Statement statement = createStatement();
             ResultSet g_rs = statement.executeQuery("SELECT * FROM exam WHERE id = " + id + ";");
             g_rs.next();
-            return new Exam(g_rs.getLong("id"), g_rs.getString("date"), g_rs.getString("name"));
+            return new Exam(
+                g_rs.getLong("id"), g_rs.getString("date"), g_rs.getString("name"), g_rs.getLong("subject_id")
+            );
         }catch (SQLException e){
             e.printStackTrace();
             return null;
@@ -40,7 +42,7 @@ public class ExamResource{
             statement.executeUpdate("UPDATE exam SET name = '" + name + "', " + "date = '" + date + "' WHERE id = " + id + ";");
             ResultSet p_rs = statement.executeQuery("SELECT * FROM exam WHERE id = " + id + ";");
             p_rs.next();
-            return new Exam(p_rs.getLong("id"), p_rs.getString("date"), p_rs.getString("name"));
+            return new Exam(p_rs.getLong("id"), p_rs.getString("date"), p_rs.getString("name"), p_rs.getLong("subject_id"));
         }catch (SQLException e){
             e.printStackTrace();
             return null;

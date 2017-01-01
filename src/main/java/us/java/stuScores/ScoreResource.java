@@ -20,7 +20,7 @@ public class ScoreResource{
             Statement statement = createStatement();
             ResultSet g_rs = statement.executeQuery("SELECT * FROM score WHERE id = " + id + ";");
             g_rs.next();
-            return new Score(Long.parseLong(id), g_rs.getLong("student_id"), g_rs.getLong("exam_id"), g_rs.getLong("subject_id"), g_rs.getInt("score"));
+            return new Score(Long.parseLong(id), g_rs.getLong("student_id"), g_rs.getLong("exam_id"), g_rs.getInt("score"));
         }catch (SQLException e){
             e.printStackTrace();
             return  null;
@@ -39,7 +39,7 @@ public class ScoreResource{
             statement.executeUpdate("UPDATE score SET score = " + score + " WHERE id = " + id + ";");
             ResultSet p_rs = statement.executeQuery("SELECT * FROM score WHERE id = " + id + ";");
             p_rs.next();
-            return new Score(p_rs.getLong("id"), p_rs.getLong("student_id"), p_rs.getLong("exam_id"), p_rs.getLong("subject_id"), p_rs.getInt("score"));
+            return new Score(p_rs.getLong("id"), p_rs.getLong("student_id"), p_rs.getLong("exam_id"), p_rs.getInt("score"));
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

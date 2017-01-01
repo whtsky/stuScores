@@ -13,18 +13,16 @@ import static us.java.stuScores.JDBC.createStatement;
 @XmlRootElement
 public class Score {
     public long id;
-    public long student_id;
-    public long exam_id;
-    public long subject_id;
+    public long student;
+    public long exam;
     public int score;
 
     public Score(){}
 
-    public Score(long id, long student_id, long exam_id, long subject_id, int score){
+    public Score(long id, long student_id, long exam_id, int score){
         this.id = id;
-        this.student_id = student_id;
-        this.exam_id = exam_id;
-        this.subject_id = subject_id;
+        this.student = student_id;
+        this.exam = exam_id;
         this.score = score;
     }
 
@@ -39,7 +37,7 @@ public class Score {
             Score score[] = new Score[rows];
             int i = 0;
             while (rs.next()){
-                score[i++] = new Score(rs.getLong("id"), rs.getLong("student_id"), rs.getLong("exam_id"), rs.getLong("subject_id"), rs.getInt("score"));
+                score[i++] = new Score(rs.getLong("id"), rs.getLong("student_id"), rs.getLong("exam_id"), rs.getInt("score"));
             }
             return score;
         } catch (SQLException e) {

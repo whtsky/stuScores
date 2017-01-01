@@ -24,13 +24,13 @@ public class ExamListResource {
     @Consumes("application/x-www-form-urlencoded")
     public Exam[] addExam(
             @FormParam("name") String name,
-            @FormParam("date") String date
+            @FormParam("date") String date,
+            @FormParam("subject") String subject
     ){
         try{
             Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
-            statement.executeUpdate("INSERT INTO exam (name, date) VALUES ('" + name + "','" + date + "');");
+            statement.executeUpdate("INSERT INTO exam (name, date, subject_id) VALUES ('" + name + "','" + date + "'," + subject + ");");
             return GetAllExam();
         }catch (SQLException e){
             e.printStackTrace();

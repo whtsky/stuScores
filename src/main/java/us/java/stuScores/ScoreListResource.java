@@ -25,14 +25,13 @@ public class ScoreListResource {
     public Score[] addScore(
             @FormParam("student_id") String student_id,
             @FormParam("exam_id") String exam_id,
-            @FormParam("subject_id") String subject_id,
             @FormParam("score") String score
     ){
         try
         {
             Statement statement = getConnection().createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
-            statement.executeUpdate("INSERT INTO score (student_id, exam_id, subject_id, score) VALUES (" + student_id + "," + exam_id + "," + subject_id + "," + score  + ");");
+            statement.executeUpdate("INSERT INTO score (student_id, exam_id, score) VALUES (" + student_id + "," + exam_id + "," + score  + ");");
             return GetAllScore();
         }
         catch(SQLException e)
