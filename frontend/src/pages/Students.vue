@@ -3,16 +3,15 @@
     <md-dialog md-open-from="#add" md-close-to="#add" ref="addDialog">
       <md-dialog-title>添加学生</md-dialog-title>
       <md-dialog-content>
-          <md-input-container :class="{'md-input-invalid': !validStudentID}">
-            <label>学号</label>
-            <md-input required v-model="newStudentID"></md-input>
-            <span class="md-error">学号不合法（学号应为数字）或学号已存在</span>
-          </md-input-container>
-          <md-input-container>
-            <label>学生名称</label>
-            <md-input required v-model="newStudent"></md-input>
-          </md-input-container>
-        </form>
+        <md-input-container :class="{'md-input-invalid': !validStudentID}">
+          <label>学号</label>
+          <md-input required v-model="newStudentID"></md-input>
+          <span class="md-error">学号不合法（学号应为数字）或学号已存在</span>
+        </md-input-container>
+        <md-input-container>
+          <label>学生名称</label>
+          <md-input required v-model="newStudent"></md-input>
+        </md-input-container>
       </md-dialog-content>
 
       <md-dialog-actions>
@@ -27,15 +26,14 @@
     <md-dialog ref="changeDialog">
       <md-dialog-title>修改学生</md-dialog-title>
       <md-dialog-content>
-          <md-input-container>
-            <label>学号</label>
-            <md-input v-model="currentStudentID" :disabled="true"></md-input>
-          </md-input-container>
-          <md-input-container>
-            <label>学生名称</label>
-            <md-input required v-model="currentStudentName"></md-input>
-          </md-input-container>
-        </form>
+        <md-input-container>
+          <label>学号</label>
+          <md-input v-model="currentStudentID" :disabled="true"></md-input>
+        </md-input-container>
+        <md-input-container>
+          <label>学生名称</label>
+          <md-input required v-model="currentStudentName"></md-input>
+        </md-input-container>
       </md-dialog-content>
 
       <md-dialog-actions>
@@ -208,6 +206,7 @@
         map(this.selectedData, s => API.delete(`/student/${s.id}`).then(
           r => this.updateStudents(r.data)
         ))
+        this.selectedData = []
       }
     }
   }

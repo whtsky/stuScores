@@ -3,12 +3,11 @@
     <md-dialog md-open-from="#add" md-close-to="#add" ref="addDialog">
       <md-dialog-title>添加学科</md-dialog-title>
       <md-dialog-content>
-          <md-input-container :class="{'md-input-invalid': subjectExist}">
-            <label>学科名称</label>
-            <md-input required v-model="newSubject"></md-input>
-            <span class="md-error">该学科已存在</span>
-          </md-input-container>
-        </form>
+        <md-input-container :class="{'md-input-invalid': subjectExist}">
+          <label>学科名称</label>
+          <md-input required v-model="newSubject"></md-input>
+          <span class="md-error">该学科已存在</span>
+        </md-input-container>
       </md-dialog-content>
 
       <md-dialog-actions>
@@ -23,12 +22,11 @@
     <md-dialog ref="changeDialog">
       <md-dialog-title>修改学科</md-dialog-title>
       <md-dialog-content>
-          <md-input-container :class="{'md-input-invalid': changeSubjectExist}">
-            <label>学科名称</label>
-            <md-input required v-model="currentSubjectName"></md-input>
-            <span class="md-error">该学科已存在</span>
-          </md-input-container>
-        </form>
+        <md-input-container :class="{'md-input-invalid': changeSubjectExist}">
+          <label>学科名称</label>
+          <md-input required v-model="currentSubjectName"></md-input>
+          <span class="md-error">该学科已存在</span>
+        </md-input-container>
       </md-dialog-content>
 
       <md-dialog-actions>
@@ -198,6 +196,7 @@
       },
       removeSubjects() {
         map(this.selectedData, s => API.delete(`/subject/${s.id}`).then(r => this.updateSubjects(r.data)))
+        this.selectedData = []
       }
     }
   }

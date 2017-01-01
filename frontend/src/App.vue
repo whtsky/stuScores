@@ -22,10 +22,6 @@
             <md-list-item>
               <router-link exact to="/exam">考试管理</router-link>
             </md-list-item>
-
-            <md-list-item>
-              <router-link exact to="/score">成绩录入</router-link>
-            </md-list-item>
           </md-list>
         </div>
       </md-sidenav>

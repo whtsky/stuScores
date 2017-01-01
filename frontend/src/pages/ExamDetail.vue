@@ -121,7 +121,7 @@
   import moment from 'moment'
 
   export default {
-    name: 'Exams',
+    name: 'ExamDetail',
     data() {
       return {
         adding: false,
@@ -145,6 +145,12 @@
         'subjects',
         'subjectNames'
       ]),
+      examID() {
+        return parseInt(this.$route.params.id)
+      },
+      exam() {
+        return this.exams.find(e => e.id === this.examID)
+      },
       fieldsEmpty() {
         return this.currentExam.name === '' || this.currentExam.date === '' || this.currentExam.subject === 0
       },

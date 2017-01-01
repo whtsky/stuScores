@@ -9,8 +9,8 @@ export const store = new Vuex.Store({
   state: {
     firstrun: false,
     user: {
-      username: "",
-      token: ""
+      username: localStorage['username'] || "",
+      token: localStorage['token'] || ""
     },
     students: [],
     subjects: [],
@@ -42,8 +42,9 @@ export const store = new Vuex.Store({
     },
     login(state, user) {
       state.firstrun = false
-      state.user.username = user.username
-      state.user.token = user.token
+      localStorage['username'] = user.username
+      localStorage['token'] = user.token
+      state.user = user
     }
   },
   getters: {
@@ -73,6 +74,13 @@ export const store = new Vuex.Store({
         examMap[exam.id] = exam.name
       }
       return examMap
+    },
+    subjectNames: (state, getters) => {
+      const subjectMap = {}
+      for(let s of getters.subjects) {
+        subjectMap[s.id] = s.name
+      }
+      return subjectMap
     }
   },
   actions: {
@@ -98,10 +106,19 @@ export const store = new Vuex.Store({
     },
     async login({ commit, dispatch }, user) {
       await commit('login', user)
-      dispatch('fetchSubjects')
-      dispatch('fetchScores')
-      dispatch('fetchStudents')
-      dispatch('fetchExams')
+      initFetch()
     }
   }
 })
+
+function initFetch() {
+  const dispatch = store.dispatch
+  dispatch('fetchSubjects')
+  dispatch('fetchScores')
+  dispatch('fetchStudents')
+  dispatch('fetchExams')
+}
+
+if (store.state.user.token) {
+  initFetch()
+}
