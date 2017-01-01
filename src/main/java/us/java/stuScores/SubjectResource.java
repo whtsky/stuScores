@@ -14,6 +14,7 @@ import java.sql.*;
 
 @Path("/subject/{id}")
 public class SubjectResource {
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Subject getSubject(@PathParam("id") String id){
@@ -28,6 +29,7 @@ public class SubjectResource {
         }
     }
 
+    @Secured
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
@@ -47,6 +49,7 @@ public class SubjectResource {
         }
     }
 
+    @Secured
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Subject[] deleteSubject(@PathParam("id") String id){

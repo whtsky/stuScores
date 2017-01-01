@@ -13,6 +13,7 @@ import java.sql.*;
  */
 @Path("/student/{id}")
 public class StudentResource{
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Student getStudent (@PathParam("id") String id){
@@ -26,6 +27,7 @@ public class StudentResource{
         }
     }
 
+    @Secured
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
@@ -43,6 +45,7 @@ public class StudentResource{
         }
     }
 
+    @Secured
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Student[] deleteStudent(@PathParam("id") String id){

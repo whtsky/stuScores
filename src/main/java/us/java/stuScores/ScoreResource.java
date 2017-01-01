@@ -13,6 +13,7 @@ import java.sql.*;
 
 @Path("/score/{id}")
 public class ScoreResource{
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Score getScore (@PathParam("id") String id){
@@ -27,6 +28,7 @@ public class ScoreResource{
         }
     }
 
+    @Secured
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
@@ -46,6 +48,7 @@ public class ScoreResource{
         }
     }
 
+    @Secured
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Score[] deleteScore(@PathParam("id") String id){

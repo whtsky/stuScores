@@ -12,13 +12,14 @@ import java.sql.*;
  */
 @Path("subject")
 public class SubjectListResource {
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Subject[] getSubject() {
         return GetAllSubject();
     }
 
-
+    @Secured
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")

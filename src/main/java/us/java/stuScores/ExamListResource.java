@@ -12,6 +12,7 @@ import java.sql.*;
 
 @Path("exam")
 public class ExamListResource {
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
 
@@ -19,6 +20,7 @@ public class ExamListResource {
         return GetAllExam();
     }
 
+    @Secured
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")

@@ -13,6 +13,7 @@ import java.sql.*;
  */
 @Path("/exam/{id}")
 public class ExamResource{
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Exam getExam(@PathParam("id") String id){
@@ -29,6 +30,7 @@ public class ExamResource{
         }
     }
 
+    @Secured
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
@@ -48,6 +50,8 @@ public class ExamResource{
             return null;
         }
     }
+
+    @Secured
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Exam[] deleteExam (

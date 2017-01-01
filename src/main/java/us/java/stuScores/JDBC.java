@@ -39,6 +39,13 @@ public class JDBC
                             "id INTEGER PRIMARY KEY NOT NULL, " +
                             "name TEXT NOT NULL " +
                     ")");
+            statement.executeUpdate(
+                    "CREATE TABLE IF NOT EXISTS user(" +
+                            "id INTEGER PRIMARY KEY NOT NULL, " +
+                            "name TEXT NOT NULL, " +
+                            "password TEXT NOT NULL, " +
+                            "token TEXT NOT NULL" +
+                    ")");
         }
         catch(SQLException e)
         {

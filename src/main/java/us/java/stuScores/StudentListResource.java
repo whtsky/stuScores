@@ -13,18 +13,20 @@ import java.sql.*;
 
 @Path("student")
 public class StudentListResource {
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Student[] getStudent(){
         return GetAllStudent();
     }
 
+    @Secured
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
     public Student[] addStudent(
             @FormParam("name") String name,
-            @FormParam("id") long id
+            @FormParam("id") String id
     ) throws SQLException{
         try
         {

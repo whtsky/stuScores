@@ -13,12 +13,14 @@ import java.sql.*;
  */
 @Path("score")
 public class ScoreListResource {
+    @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Score[] getScore(){
         return GetAllScore();
     }
 
+    @Secured
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
