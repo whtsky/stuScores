@@ -36,9 +36,7 @@ public class StudentResource{
         try {
             Statement statement = createStatement();
             statement.executeUpdate("UPDATE student SET name = '" + name + "'WHERE id = " + id + ";");
-            ResultSet p_rs = statement.executeQuery("SELECT name FROM student WHERE id = " + id + ";");
-            p_rs.next();
-            return new Student(p_rs.getString("name"), Long.parseLong(id));
+            return new Student(name, Long.parseLong(id));
         }catch (SQLException e){
             e.printStackTrace();
             return null;

@@ -55,16 +55,16 @@
           </md-button>
         </md-table-alternate-header>
 
-        <md-table @select="onSelect">
+        <md-table @select="onSelect" @sort="onSort">
           <md-table-header>
             <md-table-row>
-              <md-table-head md-numeric>ID</md-table-head>
-              <md-table-head>学科名称</md-table-head>
+              <md-table-head md-numeric md-sort-by="id">ID</md-table-head>
+              <md-table-head md-sort-by="name">学科名称</md-table-head>
             </md-table-row>
           </md-table-header>
 
           <md-table-body>
-            <md-table-row v-for="(row, rowIndex) in subjects" :key="rowIndex" :md-item="row" md-selection>
+            <md-table-row v-for="row in sortedData" :key="row.id" :md-item="row" md-selection>
               <md-table-cell :md-numeric="true">
                 <span>{{ row.id }}</span>
               </md-table-cell>
@@ -85,7 +85,7 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import { API } from 'src/utils'
-  import { map } from 'lodash'
+  import { map, sortBy, reverse } from 'lodash'
 
   export default {
     name: 'Subjects',
@@ -96,7 +96,11 @@
         selectedData: [],
         currentSubjectName: "",
         currentSubjectID: 0,
-        changing: false
+        changing: false,
+        sort: {
+          name: "id",
+          type: "desc"
+        }
       }
     },
     computed: {
@@ -120,7 +124,11 @@
       },
       canChange() {
         return this.trimedChangeSubjectName && !(this.changeSubjectExist || this.changing)
-      }
+      },
+      sortedData() {
+        const result = sortBy(this.subjects, [this.sort.name])
+        return this.sort.type == "desc" ? result : reverse(result)
+      },
     },
     methods: {
       ...mapMutations([
@@ -128,6 +136,9 @@
       ]),
       onSelect(data) {
         this.selectedData = data;
+      },
+      onSort(sort) {
+        this.sort = sort;
       },
       openAddDialog() {
         this.newSubject = ''
