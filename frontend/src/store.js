@@ -14,6 +14,7 @@ export const store = new Vuex.Store({
     },
     students: [],
     subjects: [],
+    users: [],
     exams: [],
     scores: [],
     loading: {
@@ -40,6 +41,9 @@ export const store = new Vuex.Store({
       state.scores = scores
       state.loading.scores = false
     },
+    updateUsers(state, users) {
+      state.users = users
+    },
     login(state, user) {
       state.firstrun = false
       localStorage['username'] = user.username
@@ -53,6 +57,7 @@ export const store = new Vuex.Store({
     classes: state => state.classes,
     subjects: state => state.subjects,
     exams: state => state.exams,
+    users: state => state.users,
     scores: state => state.scores,
     loading: state =>  false && Object.values(state.loading).some(v => v === true),
     studentNames: (state, getters) => {
@@ -98,6 +103,11 @@ export const store = new Vuex.Store({
         context.commit('updateScores', res.data)
       }).catch(err => console.error(err))
     },
+    fetchUsers(context) {
+      API.get('/user').then(res => {
+        context.commit('updateUsers', res.data)
+      }).catch(err => console.error(err))
+    },
     async login({ commit, dispatch }, user) {
       await commit('login', user)
       initFetch()
@@ -111,6 +121,7 @@ function initFetch() {
   dispatch('fetchScores')
   dispatch('fetchStudents')
   dispatch('fetchExams')
+  dispatch('fetchUsers')
 }
 
 if (store.state.user.token) {
