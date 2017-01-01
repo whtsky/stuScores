@@ -18,7 +18,7 @@ import Login from 'pages/Login'
 const routes = [
   { path: '/student', component: Students, alias: '/' },
   { path: '/exam', component: Exams},
-  { path: '/exam/:id', component: ExamDetail },
+  { path: '/exam/:id', component: ExamDetail, name: 'exam' },
   { path: '/score', component: Scores},
   { path: '/subject', component: Subjects},
   {
@@ -52,8 +52,6 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  console.log(store.state.user.token)
-  window.t = store.state.user.token
   if (store.state.firstrun === true && to.path !== '/firstrun') {
     next('/firstrun')
   } else if (store.state.user.token === '' && to.path !== '/login') {

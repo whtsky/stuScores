@@ -90,7 +90,7 @@
                 <span>{{ row.id }}</span>
               </md-table-cell>
               <md-table-cell :md-numeric="false">
-                <span>{{ row.name }}</span>
+                <router-link :to="{ name: 'exam', params: { id: row.id }}">{{ row.name }}</router-link>
               </md-table-cell>
               <md-table-cell>
                 <span>{{ row.date }}</span>
@@ -99,7 +99,7 @@
                 <span>{{ subjectNames[row.subject] }}</span>
               </md-table-cell>
               <md-table-cell>
-                <span>{{ row.scores }}</span>
+                <span>{{ row.scores }} / {{ students.length }}</span>
               </md-table-cell>
               <md-table-cell>
                 <md-button class="md-icon-button" @click="openChangeDialog(row)">
@@ -117,7 +117,7 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import { API } from 'src/utils'
-  import { map, sortBy, reverse } from 'lodash'
+  import { map, sortBy, reverse, groupBy } from 'lodash'
   import moment from 'moment'
 
   export default {
@@ -143,8 +143,24 @@
       ...mapGetters([
         'exams',
         'subjects',
+        'scores',
+        'students',
         'subjectNames'
       ]),
+      scoreCounts() {
+        const groupedScores = groupBy(this.scores, 'exam')
+        const counts = {}
+        for(const k in groupedScores) {
+          counts[k] = groupedScores[k].length
+        }
+        return counts
+      },
+      examsWithCount() {
+        return this.exams.map(x => {
+          x.scores = this.scoreCounts[x.id] || 0
+          return x
+        })
+      },
       fieldsEmpty() {
         return this.currentExam.name === '' || this.currentExam.date === '' || this.currentExam.subject === 0
       },
@@ -162,7 +178,7 @@
         return !(this.fieldsEmpty || this.examExist || this.adding)
       },
       sortedData() {
-        const result = sortBy(this.exams, [this.sort.name])
+        const result = sortBy(this.examsWithCount, [this.sort.name])
         return this.sort.type == "desc" ? result : reverse(result)
       },
     },

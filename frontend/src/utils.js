@@ -11,7 +11,7 @@ export const API = axios.create({
     }
     const str = [];
     for(const p in data)
-      if (data.hasOwnProperty(p) && data[p]) {
+      if (data.hasOwnProperty(p) && data[p] !== undefined) {
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(data[p]))
       }
     return str.join("&")

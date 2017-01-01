@@ -52,13 +52,7 @@ export const store = new Vuex.Store({
     students: state => state.students,
     classes: state => state.classes,
     subjects: state => state.subjects,
-    exams: (state, getters) =>  {
-      return state.exams.map(e => {
-        const exam = {...e}
-        exam.scores = getters.scores.filter(s => s.exam_id === exam.id).length
-        return exam
-      })
-    },
+    exams: state => state.exams,
     scores: state => state.scores,
     loading: state =>  false && Object.values(state.loading).some(v => v === true),
     studentNames: (state, getters) => {

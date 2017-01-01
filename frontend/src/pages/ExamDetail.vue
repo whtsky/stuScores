@@ -1,127 +1,43 @@
 <template>
-  <page-content page-title="考试管理">
-    <md-dialog md-open-from="#add" md-close-to="#add" ref="addDialog">
-      <md-dialog-title>添加考试</md-dialog-title>
-      <md-dialog-content>
-        <md-input-container :class="{'md-input-invalid': examExist}">
-          <label>考试名称</label>
-          <md-input required v-model="currentExam.name"></md-input>
-          <span class="md-error">该考试已存在</span>
-        </md-input-container>
-        <md-input-container :class="{'md-input-invalid': examExist}">
-          <label>考试时间</label>
-          <md-input required v-model="currentExam.date" type="date" placeholder="请选择考试时间"></md-input>
-          <span class="md-error">该考试已存在</span>
-        </md-input-container>
-        <md-input-container>
-          <label for="subject">考试科目</label>
-          <md-select required name="subject" id="subject" v-model="currentExam.subject">
-            <md-option :value="subject.id" v-for="subject in subjects" :key="subject.id">{{ subject.name }}</md-option>
-          </md-select>
-        </md-input-container>
-      </md-dialog-content>
-      <md-dialog-actions>
-        <md-button class="md-primary" @click="closeAddDialog()">取消</md-button>
-        <md-button class="md-primary" @click="addExam()" :disabled="!canSubmit">
-          <md-spinner md-indeterminate :md-size="10" v-if="adding"></md-spinner>
-          添加考试
-        </md-button>
-      </md-dialog-actions>
-    </md-dialog>
+  <page-content page-title="考试详情">
+    <div class="main-content" v-if="exam">
+      <md-card>
+        <md-card-header>
+          <div class="md-title">考试信息</div>
+          <div class="md-subhead">{{ exam.name }}</div>
+        </md-card-header>
 
-    <md-dialog ref="changeDialog">
-      <md-dialog-title>修改考试</md-dialog-title>
-      <md-dialog-content>
-          <md-input-container :class="{'md-input-invalid': examExist}">
-            <label>考试名称</label>
-            <md-input required v-model="currentExam.name"></md-input>
-            <span class="md-error">该考试已存在</span>
-          </md-input-container>
-          <md-input-container :class="{'md-input-invalid': examExist}">
-            <label>考试时间</label>
-            <md-input required v-model="currentExam.date" type="date"></md-input>
-            <span class="md-error">该考试已存在</span>
-          </md-input-container>
-          <md-input-container>
-            <label>考试科目</label>
-            <md-input required v-model="subjectNames[currentExam.subject]" :disabled="true"></md-input>
-          </md-input-container>
-        </form>
-      </md-dialog-content>
-      <md-dialog-actions>
-        <md-button class="md-primary" @click="closeChangeDialog()">取消</md-button>
-        <md-button class="md-primary" @click="changeExam()" :disabled="!canSubmit">
-          <md-spinner md-indeterminate :md-size="10" v-if="changing"></md-spinner>
-          修改考试
-        </md-button>
-      </md-dialog-actions>
-    </md-dialog>
-
-    <div class="main-content">
-      <md-table-card>
-        <md-toolbar>
-          <h1 class="md-title">考试管理</h1>
-          <md-button class="md-icon-button" id="add" @click="openAddDialog()">
-            <md-icon>add circle outline</md-icon>
-          </md-button>
-        </md-toolbar>
-
-        <md-table-alternate-header md-selected-label="selected">
-          <md-button class="md-icon-button" @click="removeExams()">
-            <md-icon>delete</md-icon>
-          </md-button>
-        </md-table-alternate-header>
-
-        <md-table @select="onSelect" @sort="onSort">
-          <md-table-header>
-            <md-table-row>
-              <md-table-head md-numeric md-sort-by="id">ID</md-table-head>
-              <md-table-head md-sort-by="name">考试名称</md-table-head>
-              <md-table-head md-sort-by="date">考试时间</md-table-head>
-              <md-table-head md-sort-by="subject">考试科目</md-table-head>
-              <md-table-head md-sort-by="scores">已录入成绩数</md-table-head>
-              <md-table-head>操作</md-table-head>
-            </md-table-row>
-          </md-table-header>
-
-          <md-table-body>
-            <md-table-row v-for="row in sortedData" :key="row.id" :md-item="row" md-selection>
-              <md-table-cell :md-numeric="true">
-                <span>{{ row.id }}</span>
-              </md-table-cell>
-              <md-table-cell :md-numeric="false">
-                <span>{{ row.name }}</span>
-              </md-table-cell>
-              <md-table-cell>
-                <span>{{ row.date }}</span>
-              </md-table-cell>
-              <md-table-cell>
-                <span>{{ subjectNames[row.subject] }}</span>
-              </md-table-cell>
-              <md-table-cell>
-                <span>{{ row.scores }}</span>
-              </md-table-cell>
-              <md-table-cell>
-                <md-button class="md-icon-button" @click="openChangeDialog(row)">
-                  <md-icon>edit</md-icon>
-                </md-button>
-              </md-table-cell>
-            </md-table-row>
-          </md-table-body>
-        </md-table>
-      </md-table-card>
+        <md-card-content>
+          <ul>
+            <li>考试名称： {{ exam.name }}</li>
+            <li>考试时间： {{ exam.date }}</li>
+            <li>考试科目： {{ subjectNames[exam.subject] }}</li>
+            <template v-if="relatedScores.length">
+              <li>平均分： {{ avgScore }}</li>
+              <li>最高分： {{highestScore.score}} （学生：{{ studentNames[highestScore.student] }}）</li>
+              <li>最低分： {{lowestScore.score}}（学生：{{ studentNames[lowestScore.student] }}）</li>
+            </template>
+          </ul>
+        </md-card-content>
+      </md-card>
+      <score-table :exam="exam"></score-table>
+    </div>
+    <div class="main-content" v-else>
+      Loading
     </div>
   </page-content>
 </template>
 
 <script>
   import { mapGetters, mapMutations } from 'vuex'
-  import { API } from 'src/utils'
-  import { map, sortBy, reverse } from 'lodash'
-  import moment from 'moment'
+  import ScoreTable from 'components/ScoreTable'
+  import { filter, maxBy, minBy, sortBy, sumBy } from 'lodash'
 
   export default {
     name: 'ExamDetail',
+    components: {
+      ScoreTable
+    },
     data() {
       return {
         adding: false,
@@ -143,13 +59,27 @@
       ...mapGetters([
         'exams',
         'subjects',
-        'subjectNames'
+        'subjectNames',
+        'studentNames',
+        'scores'
       ]),
       examID() {
         return parseInt(this.$route.params.id)
       },
       exam() {
         return this.exams.find(e => e.id === this.examID)
+      },
+      relatedScores() {
+        return filter(this.scores, s => s.exam === this.exam.id)
+      },
+      highestScore() {
+        return maxBy(this.scores, x => x.score)
+      },
+      lowestScore() {
+        return minBy(this.scores, x => x.score)
+      },
+      avgScore() {
+        return sumBy(this.scores, x => x.score) / this.scores.length
       },
       fieldsEmpty() {
         return this.currentExam.name === '' || this.currentExam.date === '' || this.currentExam.subject === 0
