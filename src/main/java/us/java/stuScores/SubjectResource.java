@@ -20,7 +20,7 @@ public class SubjectResource {
     public Subject getSubject(@PathParam("id") String id){
         try{
             Statement statement = createStatement();
-            ResultSet g_rs =  statement.executeQuery("SELECT name FROM subject WHERE id = " + id + ";");
+            ResultSet g_rs =  statement.executeQuery("SELECT * FROM subject WHERE id = " + id + ";");
             g_rs.next();
             return new Subject(g_rs.getString("name"), Long.valueOf(id));
         }catch (SQLException e){

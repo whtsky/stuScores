@@ -7,11 +7,22 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import static us.java.stuScores.JDBC.*;
+import static us.java.stuScores.Student.GetAllStudent;
+import static us.java.stuScores.User.GetAllUser;
+
 import java.sql.*;
 
 @Path("user")
 public class UserListResource {
 
+    @Secured
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public User[] getUser(){
+        return GetAllUser();
+    }
+
+    @Secured
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
@@ -21,15 +32,14 @@ public class UserListResource {
     ){
         try
         {
-            Statement statement = getConnection().createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+            Statement statement = createStatement();
 
             ResultSet r = statement.executeQuery("SELECT COUNT(*) AS rowcount FROM user WHERE name = '" + userName + "';");
             r.next();
             int rows = r.getInt("rowcount");
             r.close();
 
-            if(rows != 0){
+            if (rows != 0) {
                 return false;
             }
             statement.executeUpdate("INSERT INTO user (name, password) VALUES ('" + userName + "','" + passWord + "');");

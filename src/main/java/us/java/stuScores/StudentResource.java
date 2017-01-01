@@ -19,7 +19,7 @@ public class StudentResource{
     public Student getStudent (@PathParam("id") String id){
         try {
             Statement statement = createStatement();
-            ResultSet g_rs =  statement.executeQuery("SELECT name FROM student WHERE id = " + id + ";");
+            ResultSet g_rs =  statement.executeQuery("SELECT * FROM student WHERE id = " + id + ";");
             g_rs.next();
             return new Student(g_rs.getString("name"), Long.parseLong(id));
         }catch (SQLException e){
@@ -51,7 +51,7 @@ public class StudentResource{
     public Student[] deleteStudent(@PathParam("id") String id){
         try {
             Statement statement = createStatement();
-            statement.executeUpdate("DELETE FROM student WHERE id = " + Long.parseLong(id) +";");
+            statement.executeUpdate("DELETE FROM student WHERE id = " + id +";");
             return GetAllStudent();
         }catch (SQLException e){
             e.printStackTrace();

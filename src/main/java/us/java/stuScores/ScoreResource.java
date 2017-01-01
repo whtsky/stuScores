@@ -54,7 +54,7 @@ public class ScoreResource{
     public Score[] deleteScore(@PathParam("id") String id){
         try {
             Statement statement = createStatement();
-            statement.executeUpdate("DELETE FROM score WHERE id = " + id +";");
+            statement.executeUpdate("DELETE FROM score WHERE id = " + id + ";");
             return GetAllScore();
         }catch (SQLException e){
             e.printStackTrace();
