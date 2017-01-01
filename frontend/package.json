@@ -2,7 +2,7 @@
   "name": "stu-scores",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "Wu Haotian�� <whtsky@gmail.com��>",
+  "author": "Wu Haotian <whtsky@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -13,8 +13,10 @@
     "lodash": "^4.17.3",
     "vue": "^2.1.0",
     "vue-material": "^0.5.2",
+    "vue-moment": "^2.0.2",
     "vue-router": "^2.0.3",
-    "vuex": "^2.0.0"
+    "vuex": "^2.0.0",
+    "vuex-router-sync": "^4.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

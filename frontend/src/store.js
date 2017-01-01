@@ -7,6 +7,11 @@ import { API } from 'src/utils'
 
 export const store = new Vuex.Store({
   state: {
+    firstrun: false,
+    user: {
+      username: "",
+      token: ""
+    },
     students: [],
     subjects: [],
     exams: [],
@@ -34,13 +39,25 @@ export const store = new Vuex.Store({
     updateScores(state, scores) {
       state.scores = scores
       state.loading.scores = false
+    },
+    login(state, user) {
+      state.firstrun = false
+      state.user.username = user.username
+      state.user.token = user.token
     }
   },
   getters: {
+    username: state => state.user.username,
     students: state => state.students,
     classes: state => state.classes,
     subjects: state => state.subjects,
-    exams: state => state.exams,
+    exams: (state, getters) =>  {
+      return state.exams.map(e => {
+        const exam = {...e}
+        exam.scores = getters.scores.filter(s => s.exam_id === exam.id).length
+        return exam
+      })
+    },
     scores: state => state.scores,
     loading: state =>  false && Object.values(state.loading).some(v => v === true),
     studentNames: (state, getters) => {
@@ -78,6 +95,13 @@ export const store = new Vuex.Store({
       API.get('/score').then(res => {
         context.commit('updateScores', res.data)
       }).catch(err => console.error(err))
+    },
+    async login({ commit, dispatch }, user) {
+      await commit('login', user)
+      dispatch('fetchSubjects')
+      dispatch('fetchScores')
+      dispatch('fetchStudents')
+      dispatch('fetchExams')
     }
   }
 })
