@@ -71,7 +71,7 @@
         </md-table-header>
 
         <md-table-body>
-          <md-table-row v-for="row in sortedData" :key="row.id" :md-item="row" md-selection>
+          <md-table-row v-for="row in sortedData" :key="row.student" :md-item="row" md-selection>
             <md-table-cell>
               <span>{{ studentNames[row.student] }}</span>
             </md-table-cell>
@@ -93,6 +93,7 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import { API } from 'src/utils'
+  import axios from 'axios'
   import { filter, map, sortBy, reverse } from 'lodash'
   import moment from 'moment'
 
@@ -187,8 +188,7 @@
         })
         .then((r) => {
           this.adding = false
-          this.updateScores(r.data)
-          this.closeAddDialog()
+          location.reload()
         })
         .catch((error) => {
           console.error(error)
@@ -219,8 +219,10 @@
         });
       },
       remove() {
-        map(this.selectedData, s => API.delete(`/score/${s.id}`).then(r => this.updateScores(r.data)))
-        this.selectedData = []
+        axios.all(map(this.selectedData, s => API.delete(`/score/${s.id}`)))
+        .then(axios.spread(function (acct, perms) {
+          location.reload()
+        }))
       }
     }
   }

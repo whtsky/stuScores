@@ -117,6 +117,7 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import { API } from 'src/utils'
+  import axios from 'axios'
   import { map, sortBy, reverse, groupBy } from 'lodash'
   import moment from 'moment'
 
@@ -223,8 +224,7 @@
         })
         .then((r) => {
           this.adding = false
-          this.updateExams(r.data)
-          this.closeAddDialog()
+          location.reload()
         })
         .catch((error) => {
           console.error(error)
@@ -256,8 +256,10 @@
         });
       },
       removeExams() {
-        map(this.selectedData, s => API.delete(`/exam/${s.id}`).then(r => this.updateExams(r.data)))
-        this.selectedData = []
+        axios.all(map(this.selectedData, s => API.delete(`/exam/${s.id}`)))
+        .then(axios.spread(function (acct, perms) {
+          location.reload()
+        }))
       }
     }
   }

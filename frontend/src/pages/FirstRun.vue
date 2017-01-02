@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
   import { API } from 'src/utils'
 
   export default {
@@ -38,7 +38,7 @@
       },
     },
     methods: {
-      ...mapMutations([
+      ...mapActions([
         'login'
       ]),
       createUser() {
@@ -52,8 +52,12 @@
         })
         .then((r) => {
           this.submiting = false
-          this.login(this.username.trim, r.data)
-          this.$router.go('/')
+          if (r.status === 200) {
+            this.login({
+              username: this.username.trim(),
+              token: r.data
+            }).then(() => this.$router.push('/'))
+          }
         })
         .catch((error) => {
           console.error(error)

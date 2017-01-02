@@ -90,6 +90,7 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import { API } from 'src/utils'
+  import axios from 'axios'
   import { map, sortBy, reverse } from 'lodash'
 
   export default {
@@ -160,8 +161,7 @@
         })
         .then((r) => {
           this.adding = false
-          this.updateStudents(r.data)
-          this.closeAddDialog()
+          location.reload()
         })
         .catch((error) => {
           console.error(error)
@@ -203,10 +203,10 @@
         });
       },
       removeStudents() {
-        map(this.selectedData, s => API.delete(`/student/${s.id}`).then(
-          r => this.updateStudents(r.data)
-        ))
-        this.selectedData = []
+        axios.all(map(this.selectedData, s => API.delete(`/student/${s.id}`)))
+        .then(axios.spread(function (acct, perms) {
+          location.reload()
+        }))
       }
     }
   }

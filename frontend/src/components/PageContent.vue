@@ -76,8 +76,7 @@
     },
     methods: {
       toggleSidenav() {
-        console.log(this.$root);
-        this.$root.toggleSidenav();
+        this.$root.toggleSidenav()
       }
     },
     mounted() {

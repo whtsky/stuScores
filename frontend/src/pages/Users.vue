@@ -69,7 +69,7 @@
           </md-table-header>
 
           <md-table-body>
-            <md-table-row v-for="row in sortedData" :key="row.id" :md-item="row" md-selection>
+            <md-table-row v-for="(row, rowIndex) in sortedData" :key="row.username" :md-item="row" md-selection>
               <md-table-cell :md-numeric="true">
                 <span>{{ row.id }}</span>
               </md-table-cell>
@@ -90,6 +90,7 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import { API } from 'src/utils'
+  import axios from 'axios'
   import { map, sortBy, reverse } from 'lodash'
 
   export default {
@@ -158,8 +159,7 @@
         })
         .then((r) => {
           this.adding = false
-          this.updateUsers(r.data)
-          this.closeAddDialog()
+          location.reload()
         })
         .catch((error) => {
           console.error(error)
@@ -198,10 +198,10 @@
         });
       },
       remove() {
-        map(this.selectedData, s => API.delete(`/user/${s.id}`).then(
-          r => this.updateUsers(r.data)
-        ))
-        this.selectedData = []
+        axios.all(map(this.selectedData, s => API.delete(`/user/${s.id}`)))
+        .then(axios.spread(function (acct, perms) {
+          location.reload()
+        }))
       }
     }
   }

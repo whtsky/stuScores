@@ -9,7 +9,6 @@ Vue.use(VueRouter)
 import Students from 'pages/Students'
 import Exams from 'pages/Exams'
 import Subjects from 'pages/Subjects'
-import Scores from 'pages/Scores'
 import Users from 'pages/Users'
 
 import ExamDetail from 'pages/ExamDetail'
@@ -21,7 +20,6 @@ const routes = [
   { path: '/student', component: Students },
   { path: '/exam', component: Exams, alias: '/'},
   { path: '/exam/:id', component: ExamDetail, name: 'exam' },
-  { path: '/score', component: Scores},
   { path: '/subject', component: Subjects},
   { path: '/user', component: Users},
   {
