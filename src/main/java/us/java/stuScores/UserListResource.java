@@ -26,31 +26,22 @@ public class UserListResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public Boolean addUser(
-        @FormParam("userName") String userName,
-        @FormParam("passWord") String passWord
+    public User[] addUser(
+        @FormParam("username") String userName,
+        @FormParam("password") String passWord
     ){
         try
         {
             Statement statement = createStatement();
-
-            ResultSet r = statement.executeQuery("SELECT COUNT(*) AS rowcount FROM user WHERE name = '" + userName + "';");
-            r.next();
-            int rows = r.getInt("rowcount");
-            r.close();
-
-            if (rows != 0) {
-                return false;
-            }
             statement.executeUpdate("INSERT INTO user (name, password) VALUES ('" + userName + "','" + passWord + "');");
-            return true;
+            return GetAllUser();
         }
         catch(SQLException e)
         {
             // if the error message is "out of memory",
             // it probably means no database file is found
             e.printStackTrace();
-            return null;
+            return GetAllUser();
         }
     }
 }

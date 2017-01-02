@@ -32,13 +32,14 @@ public class UserResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/x-www-form-urlencoded")
-    public void modifyUser (
+    public User[] modifyUser (
         @PathParam("id") String id,
         @FormParam("password") String passWord
     ){
         try {
             Statement statement = createStatement();
             statement.executeUpdate("UPDATE user SET password = '" + passWord + "'WHERE id = " + id + ";");
+            return GetAllUser();
         }catch (SQLException e){
             e.printStackTrace();
         }
