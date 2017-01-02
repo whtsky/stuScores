@@ -1,7 +1,6 @@
 FROM kkarczmarczyk/node-yarn:7.2
 
 WORKDIR /frontend
-VOLUME /frontend/dist
 
 ADD package.json /frontend/package.json
 ADD yarn.lock /frontend/yarn.lock

@@ -3,7 +3,6 @@ FROM java:8
 RUN apt-get update
 RUN apt-get install -y maven
 
-VOLUME /stuScores/target
 WORKDIR /stuScores
 
 ADD pom.xml /stuScores/pom.xml  
@@ -13,5 +12,5 @@ RUN ["mvn", "verify"]
 ADD src /stuScores/src  
 RUN ["mvn", "package"]
 
-EXPOSE 8788
 CMD ["java", "-jar", "/stuScores/target/stuScores-1.0-SNAPSHOT.jar"]
+EXPOSE 8788

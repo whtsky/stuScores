@@ -4,7 +4,7 @@
 采用前后端分离设计， 部署时需要运行 API Server 、 编译前端代码并配置 Nginx 。
 当然，你可以使用我们预先编译好的 [Docker]((https://docs.docker.com/engine/installation/)) 镜像来快速启动一个预览服务器：
 ```bash
-docker run -p 8788 whtsky/stuscores
+docker run -p 8788:8788 whtsky/stuscores
 ```
 
 然后在浏览器里打开 [http://127.0.0.1:8788/](http://127.0.0.1:8788/) 。

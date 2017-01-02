@@ -2,5 +2,5 @@ FROM java:8
 
 ADD target/stuScores-1.0-SNAPSHOT.jar /code/stuScores.jar  
 
-EXPOSE 8788
 CMD ["java", "-jar", "/code/stuScores.jar"]
+EXPOSE 8788
