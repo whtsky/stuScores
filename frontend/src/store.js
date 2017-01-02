@@ -49,6 +49,14 @@ export const store = new Vuex.Store({
       localStorage['username'] = user.username
       localStorage['token'] = user.token
       state.user = user
+    },
+    logout(state) {
+      localStorage['username'] = ''
+      localStorage['token'] = ''
+      state.user = {
+        username: "",
+        token: ""
+      }
     }
   },
   getters: {
@@ -60,6 +68,7 @@ export const store = new Vuex.Store({
     users: state => state.users,
     scores: state => state.scores,
     loading: state =>  false && Object.values(state.loading).some(v => v === true),
+    username: state => state.user.username,
     studentNames: (state, getters) => {
       const studentMap = {}
       for(let student of getters.students) {
@@ -111,6 +120,9 @@ export const store = new Vuex.Store({
     async login({ commit, dispatch }, user) {
       await commit('login', user)
       initFetch()
+    },
+    async logout({ commit }) {
+      await commit('logout')
     }
   }
 })

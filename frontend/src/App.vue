@@ -22,6 +22,17 @@
             <md-list-item>
               <router-link exact to="/exam">考试管理</router-link>
             </md-list-item>
+            <md-list-item>
+              <router-link exact to="/user">用户管理</router-link>
+              <md-divider class="md-inset"></md-divider>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div class="main-sidebar-admin-actions" v-show="username">
+          <md-list class="md-dense">
+            <md-list-item @click="doLogout()">
+              退出登录
+            </md-list-item>
           </md-list>
         </div>
       </md-sidenav>
@@ -91,7 +102,7 @@
         margin-bottom: 16px;
       }
     }
-    .main-sidebar-links {
+    .main-sidebar-links, .main-sidebar-admin-actions {
       overflow: auto;
       .md-inset .md-list-item-container {
         padding-left: 36px;
@@ -100,6 +111,9 @@
         font-size: 14px;
         font-weight: 500;
       }
+    }
+    .main-sidebar-admin-actions {
+      margin-top: auto;
     }
   }
   .main-content {
@@ -126,14 +140,27 @@
 </style>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
+
   export default {
     name: 'App',
+    computed: {
+      ...mapGetters([
+        'username'
+      ]),
+    },
     methods: {
+      ...mapActions([
+        'logout'
+      ]),
       toggleSidenav() {
         this.$refs['main-sidebar'].toggle();
       },
       closeSidenav() {
         this.$refs['main-sidebar'].close();
+      },
+      doLogout() {
+        this.logout().then(r => this.$router.push('/login'))
       }
     }
   }

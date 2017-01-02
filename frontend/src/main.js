@@ -1,5 +1,4 @@
 import { store } from './store'
-import { sync } from 'vuex-router-sync'
 
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
@@ -18,7 +17,6 @@ Vue.component('page-content', PageContent);
 import App from './App'
 
 import router from './router.js'
-sync(store, router, { moduleName: 'RouteModule' })
 
 
 const Instance = Vue.component('app', App)
