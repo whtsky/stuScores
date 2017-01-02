@@ -39,10 +39,10 @@ public class UserResource {
         try {
             Statement statement = createStatement();
             statement.executeUpdate("UPDATE user SET password = '" + passWord + "'WHERE id = " + id + ";");
-            return GetAllUser();
         }catch (SQLException e){
             e.printStackTrace();
         }
+        return GetAllUser();    
     }
 
     @Secured
@@ -52,10 +52,9 @@ public class UserResource {
         try {
             Statement statement = createStatement();
             statement.executeUpdate("DELETE FROM user WHERE id = " + id + ";");
-            return GetAllUser();
         }catch (SQLException e){
             e.printStackTrace();
-            return null;
         }
+        return GetAllUser();        
     }
 }
